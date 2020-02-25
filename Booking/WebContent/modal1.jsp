@@ -22,7 +22,7 @@
     /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
+  position: relative; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
@@ -31,6 +31,7 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
 }
 
 /* Modal Content/Box */
@@ -40,6 +41,7 @@
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  
 }
 
 /* The Close Button */
@@ -78,7 +80,7 @@
       <div class="row">
 
               <!-- Trigger/Open The Modal -->
-<button id="myBtn" class="btn btn-primary">Open Modal</button>
+<a id="myBtn" class="btn btn-primary">Open Modal</a>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -86,7 +88,12 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+    <form name="setDate" action="setgroup" method="Post">
+     
+	   <p>Do you want to disable group?</p>  
+	   <input type="submit" name="submit" class="btn btn-primary" onClick="return validate();" value="Confirm">
+	   
+	   </form>
   </div>
 
 </div>  
@@ -125,11 +132,11 @@
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
+   // window.onclick = function(event) {
+     // if (event.target == modal) {
+       // modal.style.display = "none";
+     // }
+   // }
     </script>
 </body>
 </html>

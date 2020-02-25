@@ -14,7 +14,7 @@ public class GroupDaoImp implements GroupDao {
 
 	@Override
 	public int insertGroup(Group g) {
-int status = 0;
+     int status = 0;
 		
 		try {
 		
@@ -53,7 +53,7 @@ int status = 0;
 			
 				}catch(Exception e){
 					System.out.println(e);
-					System.out.println("there is an exception in checking group");
+					System.out.println("there is an exception in checking group status");
 				}
 		return false ;
 	}
@@ -117,6 +117,65 @@ int status = 0;
         	}  
           
         return flag; 
+	}
+
+	@Override
+	public boolean checkGroup(String from, String to) {
+		try {
+			conn1 = ConnectionProvider.getconn();
+			ps = conn1.prepareStatement("SELECT * from groupstatus WHERE fromdate=? and todate=?");
+			ps.setString(1, from);
+			ps.setString(2, to); 
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+			return true;	
+			}
+			
+			
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in checking group dates");
+				}
+		return false ;
+	}
+
+	@Override
+	public String getToDate(String status) {
+		
+		String to ="";
+		
+        Group g = new Group();
+		
+		
+		
+		try {
+			
+			
+			conn1 = ConnectionProvider.getconn();
+			ps = conn1.prepareStatement("select * from groupstatus where status=?");
+			ps.setString(1, status);
+			
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				g.setFrom(rs.getString(1));
+				g.setTo(rs.getString(2));
+				g.setStatus(rs.getString(3));
+					
+			}
+			
+			to = g.getTo();
+			
+			
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in getting deadline date");
+				}
+				
+		return to;
 	}
 
 }
