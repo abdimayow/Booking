@@ -19,10 +19,11 @@ int status = 0;
 		try {
 		
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into bookstatus (fromdate, todate, status)values(?,?,?)");
+		ps = conn1.prepareStatement("insert into bookstatus (fromdate, todate, status, AcademicYear)values(?,?,?,?)");
 		ps.setString(1, b.getFrom());	
 		ps.setString(2, b.getTo());
 		ps.setString(3, b.getStatus());
+		ps.setString(4, b.getYear());
 		
 		status = ps.executeUpdate();
 		
@@ -37,17 +38,24 @@ int status = 0;
 	}
 
 	@Override
-	public boolean checkBookStatus(String status) {
+	public String checkBookStatus() {
+		
+		String status = "";
+		
 		try {
 			conn1 = ConnectionProvider.getconn();
-			ps = conn1.prepareStatement("SELECT * from bookstatus WHERE status=?");
-			ps.setString(1, status);
+			ps = conn1.prepareStatement("select status from bookstatus ORDER BY id DESC LIMIT 1");
+
 		  
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-			return true;	
+				 status = rs.getString("status");
+				 
+				 System.out.println(status);
+					
+	
 			}
 			
 			
@@ -55,7 +63,7 @@ int status = 0;
 					System.out.println(e);
 					System.out.println("there is an exception in checking book status");
 				}
-		return false ;
+		return status ;
 	}
 
 	@Override
@@ -100,6 +108,7 @@ int status = 0;
 				b.setFrom(rs.getString(1));
 				b.setTo(rs.getString(2));
 				b.setStatus(rs.getString(3));
+				b.setYear(rs.getString(4));
 					
 			}
 			

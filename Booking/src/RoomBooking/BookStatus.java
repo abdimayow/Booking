@@ -6,6 +6,7 @@ public class BookStatus {
 private String from;
 private String to;
 private String status;
+private String year;
 public String getFrom() {
 	return from;
 }
@@ -24,4 +25,11 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
+public String getYear() {
+	return year;
+}
+public void setYear(String year) {
+	this.year = year;
+}
+
 }

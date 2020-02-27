@@ -443,12 +443,7 @@ else{
 	$('#bst').removeClass('disabled');
 	
 }
-if(bstatus == 'YES'){
-	$('#b-btn').addClass('active');
-}
-else{
-	$('#b-btn').removeClass('active');	
-}
+
 	
     	var alterClass= function(){
         var ww= document.body.clientWidth;

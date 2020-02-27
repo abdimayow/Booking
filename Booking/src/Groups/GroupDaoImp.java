@@ -27,6 +27,7 @@ public class GroupDaoImp implements GroupDao {
 		status = ps.executeUpdate();
 		
 		conn1.close();
+		ps.close();
 			
 		}catch(Exception e){
 			System.out.println(e);
@@ -37,25 +38,52 @@ public class GroupDaoImp implements GroupDao {
 	}
 
 	@Override
-	public boolean checkGroup(String status) {
-		try {
-			conn1 = ConnectionProvider.getconn();
-			ps = conn1.prepareStatement("SELECT * from groupstatus WHERE status=?");
-			ps.setString(1, status);
-		  
-			
-			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
-			return true;	
-			}
+	public String  checkGroupstates() {
+		
+
+	
+
+			String status = "";
 			
 			
-				}catch(Exception e){
-					System.out.println(e);
-					System.out.println("there is an exception in checking group status");
-				}
-		return false ;
+			try {
+				
+				
+				conn1 = ConnectionProvider.getconn();
+				ps = conn1.prepareStatement("select status from groupstatus ORDER BY id DESC LIMIT 1");
+		
+				
+				
+				ResultSet rs = ps.executeQuery();
+				
+				if(rs.next()) {
+	
+				 status = rs.getString("status");
+				 
+				 System.out.println(status);
+					
+				 conn1.close();
+				 ps.close();
+				 
+				  }
+					
+				
+					
+			
+				
+				
+
+				
+				
+					}catch(Exception e){
+					
+						System.out.println(e);
+						System.out.println("there is an exception in checking for an open group");
+					}
+			
+			
+					
+			return status;
 	}
 
 	@Override
@@ -120,7 +148,7 @@ public class GroupDaoImp implements GroupDao {
 	}
 
 	@Override
-	public boolean checkGroup(String from, String to) {
+	public boolean checkGroupdates(String from, String to) {
 		try {
 			conn1 = ConnectionProvider.getconn();
 			ps = conn1.prepareStatement("SELECT * from groupstatus WHERE fromdate=? and todate=?");
@@ -145,29 +173,26 @@ public class GroupDaoImp implements GroupDao {
 	public String getToDate(String status) {
 		
 		String to ="";
-		
-        Group g = new Group();
-		
+			
 		
 		
 		try {
 			
 			
 			conn1 = ConnectionProvider.getconn();
-			ps = conn1.prepareStatement("select * from groupstatus where status=?");
+			ps = conn1.prepareStatement("select todate from groupstatus where status=?");
 			ps.setString(1, status);
 			
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				g.setFrom(rs.getString(1));
-				g.setTo(rs.getString(2));
-				g.setStatus(rs.getString(3));
+			
+				to = rs.getString("todate");
 					
 			}
 			
-			to = g.getTo();
+			
 			
 			
 				}catch(Exception e){

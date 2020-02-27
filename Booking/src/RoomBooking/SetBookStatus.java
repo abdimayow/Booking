@@ -1,6 +1,8 @@
 package RoomBooking;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +27,25 @@ public class SetBookStatus extends HttpServlet {
 		   String to = request.getParameter("to");
 		   String submitype = request.getParameter("submit");
 		   String status = "YES";
+		   String now = rm.checkBookStatus();
 		  BookStatus g = new BookStatus();
 		  if(submitype.equals("confirmDate")) {
 			  
+			  LocalDate  today  = LocalDate.now();
+			  LocalDate  tomorrow  = LocalDate.now().plusYears(1);
+			  int stoday = today.getYear();
+			  int stomorrow = tomorrow.getYear();
+              String year = stoday+"/"+stomorrow;
+
 			  
 			  g.setFrom(from);
 			  g.setTo(to);
-			  
 			  g.setStatus(status);
+			  g.setYear(year);
 			  
-			if( rm.checkBookStatus("YES")== false) {
+			  
+			  
+			if( now.equals("NO")) {
 				int one = rm.insertBookingStatus(g);
 				session.setAttribute("bstatus","YES");
 				System.out.println(one);
@@ -54,7 +65,7 @@ public class SetBookStatus extends HttpServlet {
 		  if(submitype.equals("Confirm")) {
 			
 			  
-			if( rm.checkBookStatus("YES")== true) {
+			if( now.equals("YES")) {
 				
 				rm.closeBookStatus();
 				session.setAttribute("bstatus","NO");

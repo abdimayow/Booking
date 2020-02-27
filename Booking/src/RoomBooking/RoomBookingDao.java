@@ -6,7 +6,7 @@ public interface RoomBookingDao {
 
 	public int insertBookingStatus(BookStatus b) ;
 
-	public boolean checkBookStatus(String status);
+	public String checkBookStatus();
 	
 	public boolean checkBookStatus(String from,String to);
 	

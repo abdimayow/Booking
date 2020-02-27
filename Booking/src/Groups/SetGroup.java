@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import RoomBooking.RoomBookingDao;
+import RoomBooking.RoomBookingDaoImp;
+
 /**
  * Servlet implementation class SetGroup
  */
@@ -17,6 +20,7 @@ public class SetGroup extends HttpServlet {
   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   GroupDao gd = new GroupDaoImp();
+	   RoomBookingDao rm = new RoomBookingDaoImp();
 		
 	   HttpSession session = request.getSession();
 	  
@@ -25,8 +29,14 @@ public class SetGroup extends HttpServlet {
 	   String to = request.getParameter("to");
 	   String submitype = request.getParameter("submit");
 	   String status = "YES";
+	   String now = gd.checkGroupstates();
+	   String then = rm.checkBookStatus();
 	  Group g = new Group();
 	  if(submitype.equals("confirmDate")) {
+		  
+		  if(then.equals("YES")) {
+			  rm.closeBookStatus();
+		  }
 		  
 		  
 		  g.setFrom(from);
@@ -34,7 +44,7 @@ public class SetGroup extends HttpServlet {
 		  
 		  g.setStatus(status);
 		  
-		if( gd.checkGroup("YES")== false) {
+		if( now.equals("NO")) {
 			int one = gd.insertGroup(g);
 			session.setAttribute("gstatus","YES");
 			System.out.println(one);
@@ -54,7 +64,7 @@ public class SetGroup extends HttpServlet {
 	  if(submitype.equals("Confirm")) {
 		
 		  
-		if( gd.checkGroup("YES")== true) {
+		if( now.equals("YES")) {
 			
 			gd.closeGroup();
 			session.setAttribute("gstatus","NO");
