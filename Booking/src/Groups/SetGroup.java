@@ -1,6 +1,8 @@
 package Groups;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,7 @@ public class SetGroup extends HttpServlet {
 	   HttpSession session = request.getSession();
 	  
 		
-		String from = request.getParameter("from");
+	   String from = request.getParameter("from");
 	   String to = request.getParameter("to");
 	   String submitype = request.getParameter("submit");
 	   String status = "YES";
@@ -33,16 +35,22 @@ public class SetGroup extends HttpServlet {
 	   String then = rm.checkBookStatus();
 	  Group g = new Group();
 	  if(submitype.equals("confirmDate")) {
+
 		  
 		  if(then.equals("YES")) {
 			  rm.closeBookStatus();
 		  }
 		  
-		  
+		  LocalDate  today  = LocalDate.now();
+		  LocalDate  tomorrow  = LocalDate.now().plusYears(1);
+		  int stoday = today.getYear();
+		  int stomorrow = tomorrow.getYear();
+          String year = stoday+"/"+stomorrow;
+		  System.out.println(year);
 		  g.setFrom(from);
-		  g.setTo(to);
-		  
+		  g.setTo(to); 
 		  g.setStatus(status);
+		  g.setYear(year);
 		  
 		if( now.equals("NO")) {
 			int one = gd.insertGroup(g);

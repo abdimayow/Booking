@@ -2,23 +2,13 @@ package Login;
 
 public class Admin {
 	private int id;
-	private String firstname;
-	private String secondname;
+	private String name;
 	private String department;
 	private String position;
+	private String email;
+	private String recoveryemail;
 	private String password;
-	public String getFirstname() {
-		return firstname;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	public String getSecondname() {
-		return secondname;
-	}
-	public void setSecondname(String secondname) {
-		this.secondname = secondname;
-	}
+
 	public String getDepartment() {
 		return department;
 	}
@@ -43,5 +33,24 @@ public class Admin {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getRecoveryemail() {
+		return recoveryemail;
+	}
+	public void setRecoveryemail(String recoveryemail) {
+		this.recoveryemail = recoveryemail;
+	}
+	
 	
 }

@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label class="col-xs-2  control-label" for="inputUname">username</label>
                         <div class="col-xs-10">
-                        <input class="form-control" type="text" id="inputUname" name="AdminUname"  placeholder="username">
+                        <input class="form-control" type="text" id="inputUname" name="username"  placeholder="username">
                         </div>
                     </div>
                     <div class="form-group">

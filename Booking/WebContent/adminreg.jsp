@@ -52,17 +52,12 @@
                 <form class="form-horizontal"  action="Register2" method="Post">
                     
                     <div class="form-group">
-                        <label class="col-xs-2  control-label" for="firstname">firstname</label>
+                        <label class="col-xs-2  control-label" for="name">name</label>
                         <div class="col-xs-10">
-                        <input class="form-control" type="text" id="inputUname" name="firstname"  placeholder="firstname">
+                        <input class="form-control" type="text" id="inputUname" name="name"  placeholder="name">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="secondname">secondname</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="secondname" name="secondname"  placeholder="secondname">
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-xs-2  control-label" for="department">department</label>
                         <div class="col-xs-10">
@@ -75,12 +70,24 @@
                         <input class="form-control" type="text" id="position" name="position"  placeholder="position">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-xs-2  control-label" for="email">secondname</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="email" id="secondname" name="email"  placeholder="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2  control-label" for="secondname">recoveryemail</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="email" id="secondname" name="recoveryemail"  placeholder="recoveryemail">
+                        </div>
+                    </div>
                    
                     <div class="form-group">
                         <label class="col-xs-2  control-label" for="password">password</label>
                         <div class="col-xs-10">
                         <input class="form-control" type="password" id="password" name="password" placeholder="password">
-                        <input class="form-control" type="hidden" id="admin" name="admin" value="admin">
+                        
                     </div>
                     </div>
                      <div class="form-group">

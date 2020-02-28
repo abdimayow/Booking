@@ -2,7 +2,7 @@ package RoomBooking;
 
 public class BookStatus {
 
-
+private int id;
 private String from;
 private String to;
 private String status;
@@ -30,6 +30,12 @@ public String getYear() {
 }
 public void setYear(String year) {
 	this.year = year;
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
 }
 
 }

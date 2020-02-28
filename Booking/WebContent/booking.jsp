@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Admin Dashboard</title>
+    <title>Accomodation</title>
 
     <!-- Bootstrap -->
     <link href="bootstrap-3/css/bootstrap.min.css" rel="stylesheet">
@@ -160,10 +160,7 @@
        <li ><a class="active" href="#search">Search</a></li>
        <li ><a href="#booking" > Booking</a></li>
       <li ><a href="#groups" >Groups</a></li>
-      <li ><a href="#bRooms" >Booked-Rooms</a></li>
-      <li ><a href="#vRooms" >Vacant-Rooms</a></li>
-      <li ><a href="#book" >Book</a></li>
-      <li ><a href="#unBook" >UnBook</a></li>
+      <li ><a href="#uBook" >UnBook</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
        <li ><a href="#">logout</a></li>
@@ -370,46 +367,90 @@
      </div>
    
    </div >
+
+
+<div id="uBook" class="DivStyle">
+    <h2>Unbook</h2>
+  
+     <div  class="DivStyle2">
+     <h3>Status</h3>
+     
+     <h4>Click on the Button to Change status</h4>
+      <div id="st2" class="col-xs-2 dropdown">
+        <a  class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+            Status<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a id="enable" >Enable</a></li>
+            <li><a id="myBtn">Disable</a></li>
+            <li><a id="view">View</a></li>
+           
+        </ul>
+    </div>
+    
+    
    
-       <div id="bRooms" class="DivStyle">
-   <h2>Booked Rooms</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
-   </div >
-       <div id="vRooms" class="DivStyle">
-   <h2>Vacant Rooms</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
-   </div >
-       <div id="book" class="DivStyle">
-   <h2>Book</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
-   </div >
-       <div id="uBook" class="DivStyle">
-   <h2>Unbook</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
+     
+     <div id="St-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
+   
+      
+
+  
+    <!-- The Modal to set dates for groups -->
+<div id="gModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close4">&times;</span>
+			<form name="setDate" action="setgroup" method="Post">
+			 <div class="form-group">
+			<label>from:</label> <input name="from" type="date" class="form-control" id="from">
+			</div>
+			<div class="form-group">
+			<label>to:</label> <input   name="to" type="date" class="form-control" id="to">
+			</div>
+			<input type="submit" name="submit" class="btn btn-primary" onClick="return validate();" value="confirmDate">
+			</form>
+  </div>
+
+</div>
+  
+  
+  
+  <!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form name="setDate" action="setgroup" method="Post">
+     
+	   <p>Do you want to disable group?</p>  
+	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   
+	   </form>
+  </div>
+
+</div>
+        
+       
+     </div>
+          <div  class="DivStyle2">
+     <h3>View</h3>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
+    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
+    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
+     numquam aliquam assumenda deleniti facilis.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
+    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
+    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
+     numquam aliquam assumenda deleniti facilis.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
+    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
+    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
+     numquam aliquam assumenda deleniti facilis.
+     </div>
+   
    </div >
    </div >
    

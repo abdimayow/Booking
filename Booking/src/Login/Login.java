@@ -32,17 +32,17 @@ public class Login extends HttpServlet {
    
         
 		
-    	String name1 = request.getParameter("StudentUname");
+    	String regno = request.getParameter("regno");
 		String password1 = request.getParameter("StudentPassword");
 	    String submitype = request.getParameter("submit");
-		String name2 = request.getParameter("AdminUname");
+		String name = request.getParameter("username");
 		String password2 = request.getParameter("AdminPassword");
 	
-		Student c=cd.getStudent(name1, password1); 
+		Student c=cd.getStudent(regno, password1); 
 	   
 		
 		
-		Admin a= cd.getAdmin(name2, password2);
+		Admin a= cd.getAdmin(name, password2);
 	
 		
 
@@ -51,13 +51,13 @@ public class Login extends HttpServlet {
 	     
 				
 		
-		if(submitype.equals("Login Student") && (c.getFirstname() != null)) {
+		if(submitype.equals("Login Student") && (c.getRegno() != null)) {
 			
 		
-			System.out.println(c.getFirstname());
+			System.out.println(c.getName());
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("firstname", c.getFirstname());
+			session.setAttribute("name", c.getName());
 			session.setAttribute("regno",c.getRegno());
 
 		
@@ -68,21 +68,21 @@ public class Login extends HttpServlet {
 		
 		
 		
-		else if(submitype.equals("Login Admin") && (a.getFirstname()!=null)) {
+		else if(submitype.equals("Login Admin") && (a.getName()!=null)) {
 			
 			
 
 				
 				
 				
-			    System.out.println(a.getFirstname());
+			    System.out.println(a.getName());
 				HttpSession session = request.getSession();
-				session.setAttribute("firstname", a.getFirstname());
+				session.setAttribute("firstname", a.getName());
 				session.setAttribute("id",a.getId());
 	
 			    response.sendRedirect("checkstatus");
 				}
-				else if(submitype.equals("Login Admin") && (a.getFirstname()==null)) {
+				else if(submitype.equals("Login Admin") && (a.getName()==null)) {
 					HttpSession session = request.getSession();
 					session.setAttribute("failure","Signin not successful");
 					response.sendRedirect("admin.jsp");

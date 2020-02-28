@@ -19,10 +19,11 @@ public class GroupDaoImp implements GroupDao {
 		try {
 		
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into groupstatus (fromdate, todate, status)values(?,?,?)");
+		ps = conn1.prepareStatement("insert into groupstatus (fromdate, todate, status, year)values(?,?,?,?)");
 		ps.setString(1, g.getFrom());	
 		ps.setString(2, g.getTo());
 		ps.setString(3, g.getStatus());
+		ps.setString(4, g.getYear());
 		
 		status = ps.executeUpdate();
 		
@@ -103,9 +104,11 @@ public class GroupDaoImp implements GroupDao {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				g.setFrom(rs.getString(1));
-				g.setTo(rs.getString(2));
-				g.setStatus(rs.getString(3));
+				g.setId(rs.getInt(1));
+				g.setFrom(rs.getString(2));
+				g.setTo(rs.getString(3));
+				g.setStatus(rs.getString(4));
+				g.setYear(rs.getString(5));
 					
 			}
 			

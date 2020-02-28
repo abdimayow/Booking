@@ -32,19 +32,23 @@ public class Register2 extends HttpServlet {
 			
 			if(submitype.equals("Register Student")) {
 				String regno = request.getParameter("regno"); 
-				String fname = request.getParameter("firstname");
-				String sname = request.getParameter("secondname");
+				String name = request.getParameter("name");	
 				String faculty = request.getParameter("faculty");
 				String department = request.getParameter("department");
+				String year = request.getParameter("year");
+				String email = request.getParameter("email");
+				String recoveryemail = request.getParameter("recoveryemail");
 				String password = request.getParameter("password");
 				
 				Student c = new Student();
 				
 				c.setRegno(regno);
-				c.setFirstname(fname);
-				c.setSecondname(sname);
+				c.setName(name);
 				c.setFaculty(faculty );
 				c.setDepartment	(department);
+				c.setYear(year);
+				c.setEmail(email);
+				c.setRecoveryemail(recoveryemail);
 				c.setPassword(password);
 				
 				
@@ -61,26 +65,23 @@ public class Register2 extends HttpServlet {
 					
 				}
 			else if(submitype.equals("Register Admin")) {
-					String fname = request.getParameter("firstname");
-					String sname = request.getParameter("secondname");
-					String position = request.getParameter("position");
+					String name = request.getParameter("name");
 					String department = request.getParameter("department");
+					String position = request.getParameter("position");
+					String email = request.getParameter("email");
+					String recoveryemail = request.getParameter("recoveryemail");
 					String password = request.getParameter("password");
 				    
 					Admin c = new Admin();
 					
 					
-					c.setFirstname(fname);
-					c.setSecondname(sname);
-					c.setPosition(position);
+					c.setName(name);
 					c.setDepartment	(department);
+					c.setPosition(position);
+					c.setEmail(email);
+					c.setRecoveryemail(recoveryemail);
 					c.setPassword(password);
-					
-					System.out.println(c.getFirstname());
-					System.out.println(c.getSecondname());
-					System.out.println(c.getDepartment());
-					System.out.println(c.getPosition());
-					System.out.println(c.getPassword());
+
 					
 					 int n = cd.insertAdmin(c);
 					 

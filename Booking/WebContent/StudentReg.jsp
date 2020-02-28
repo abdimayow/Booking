@@ -50,25 +50,19 @@
                     
              
                 <form class="form-horizontal"  action="Register2" method="Post">
-                    
+                    <div class="form-group">
+                        <label class="col-xs-2  control-label" for="name">name</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="text" id="name" name="name"  placeholder="name">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-xs-2  control-label" for="regno">regno</label>
                         <div class="col-xs-10">
                         <input class="form-control" type="text" id="regno" name="regno"  placeholder="regno">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="firstname">firstname</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="inputUname" name="firstname"  placeholder="firstname">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="secondname">secondname</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="secondname" name="secondname"  placeholder="secondname">
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-xs-2  control-label" for="faculty">faculty</label>
                         <div class="col-xs-10">
@@ -81,12 +75,29 @@
                         <input class="form-control" type="text" id="department" name="department"  placeholder="department">
                         </div>
                     </div>
-                   
+                    <div class="form-group">
+                        <label class="col-xs-2  control-label" for="year">year</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="text" id="inputUname" name="year"  placeholder="year">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2  control-label" for="email">email</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="text" id="email" name="email"  placeholder="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2  control-label" for="recoveryemail">recoveryemail</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="text" id="recoveryemail" name="recoveryemail"  placeholder="recoveryemail">
+                        </div>
+                    </div>                   
                     <div class="form-group">
                         <label class="col-xs-2  control-label" for="password">password</label>
                         <div class="col-xs-10">
                         <input class="form-control" type="password" id="password" name="password" placeholder="password">
-                        <input class="form-control" type="hidden" id="student" name="student" value="student">
+                     
                     </div>
                     </div>
                      <div class="form-group">

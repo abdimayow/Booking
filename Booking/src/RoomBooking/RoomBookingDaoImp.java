@@ -19,7 +19,7 @@ int status = 0;
 		try {
 		
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into bookstatus (fromdate, todate, status, AcademicYear)values(?,?,?,?)");
+		ps = conn1.prepareStatement("insert into bookstatus (fromdate, todate, status, year)values(?,?,?,?)");
 		ps.setString(1, b.getFrom());	
 		ps.setString(2, b.getTo());
 		ps.setString(3, b.getStatus());
@@ -105,10 +105,11 @@ int status = 0;
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				b.setFrom(rs.getString(1));
-				b.setTo(rs.getString(2));
-				b.setStatus(rs.getString(3));
-				b.setYear(rs.getString(4));
+				b.setId(rs.getInt(1));
+				b.setFrom(rs.getString(2));
+				b.setTo(rs.getString(3));
+				b.setStatus(rs.getString(4));
+				b.setYear(rs.getString(5));
 					
 			}
 			
@@ -169,9 +170,10 @@ int status = 0;
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				g.setFrom(rs.getString(1));
-				g.setTo(rs.getString(2));
-				g.setStatus(rs.getString(3));
+				g.setId(rs.getInt(1));
+				g.setFrom(rs.getString(2));
+				g.setTo(rs.getString(3));
+				g.setStatus(rs.getString(4));
 					
 			}
 			

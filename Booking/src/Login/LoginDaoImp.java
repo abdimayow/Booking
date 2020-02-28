@@ -39,13 +39,15 @@ public class LoginDaoImp implements LoginDao{
 			
 		String pass=sb.toString();	
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into student (regno, firstname, secondname, faculty, department,password)values(?,?,?,?,?,?)");
-		ps.setString(1, c.getRegno());	
-		ps.setString(2, c.getFirstname());
-		ps.setString(3, c.getSecondname());
-		ps.setString(4, c.getFaculty());
-		ps.setString(5, c.getDepartment());
-		ps.setString(6, pass);
+		ps = conn1.prepareStatement("insert into students (name, regno, faculty, department, year, email, recoveryemail, password)values(?,?,?,?,?,?,?,?)");
+		ps.setString(1, c.getName());	
+		ps.setString(2, c.getRegno());
+		ps.setString(3, c.getFaculty());
+		ps.setString(4, c.getDepartment());
+		ps.setString(5, c.getYear());
+		ps.setString(6, c.getEmail());
+		ps.setString(7, c.getRecoveryemail());
+		ps.setString(8, pass);
 		status = ps.executeUpdate();
 		
 		conn1.close();
@@ -89,7 +91,7 @@ public class LoginDaoImp implements LoginDao{
 		
 		
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("select * from student where firstname=? and password=?");
+		ps = conn1.prepareStatement("select * from students where regno=? and password=?");
 		ps.setString(1, firstname);
 		ps.setString(2, pass);
 		
@@ -98,12 +100,14 @@ public class LoginDaoImp implements LoginDao{
 		while(rs.next()) {
 			
 			
-			c.setRegno(rs.getString(1));
-			c.setFirstname(rs.getString(2));
-			c.setSecondname(rs.getString(3));
-			c.setFaculty(rs.getString(4));
-			c.setDepartment	(rs.getString(5));
-			c.setPassword(rs.getString(6));
+			c.setName(rs.getString(1));
+			c.setRegno(rs.getString(2));
+			c.setFaculty(rs.getString(3));
+			c.setDepartment(rs.getString(4));
+			c.setYear(rs.getString(5));
+			c.setEmail(rs.getString(6));
+			c.setRecoveryemail(rs.getString(7));		
+			c.setPassword(rs.getString(8));
 				
 			
 		}
@@ -143,12 +147,13 @@ public class LoginDaoImp implements LoginDao{
 			
 		String pass=sb.toString();	
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into admin(firstname, secondname, department, position, password)values(?,?,?,?,?)");
-		ps.setString(1, a.getFirstname());	
-		ps.setString(2, a.getSecondname());
-		ps.setString(3, a.getDepartment());
-		ps.setString(4, a.getPosition());
-		ps.setString(5, pass);
+		ps = conn1.prepareStatement("insert into admin(name, department, position, email, recoveryemail, password)values(?,?,?,?,?,?)");
+		ps.setString(1, a.getName());	
+		ps.setString(2, a.getDepartment());
+		ps.setString(3, a.getPosition());
+		ps.setString(4, a.getEmail());
+		ps.setString(5, a.getRecoveryemail());
+		ps.setString(6, pass);
 		status = ps.executeUpdate();
 		
 		conn1.close();
@@ -192,7 +197,7 @@ public class LoginDaoImp implements LoginDao{
 			
 			
 			conn1 = ConnectionProvider.getconn();
-			ps = conn1.prepareStatement("select * from admin where firstname=? and password=?");
+			ps = conn1.prepareStatement("select * from admin where name=? and password=?");
 			ps.setString(1, firstname);
 			ps.setString(2, pass);
 			
@@ -202,11 +207,12 @@ public class LoginDaoImp implements LoginDao{
 				
 				
 				a.setId(rs.getInt(1));
-				a.setFirstname(rs.getString(2));
-				a.setSecondname(rs.getString(3));
-				a.setDepartment(rs.getString(4));
-				a.setPosition(rs.getString(5));
-				a.setPassword(rs.getString(6));
+				a.setName(rs.getString(2));
+				a.setDepartment(rs.getString(3));
+				a.setPosition(rs.getString(4));
+				a.setEmail(rs.getString(5));
+				a.setRecoveryemail(rs.getString(6));
+				a.setPassword(rs.getString(7));
 					
 				
 			}
