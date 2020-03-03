@@ -70,6 +70,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-xs-2  control-label" for="gender">gender</label>
+                        <div class="col-xs-10">
+                        <input class="form-control" type="text" id="gender" name="gender"  placeholder="gender">
+                        </div>
+                    </div>                    
+                    <div class="form-group">
                         <label class="col-xs-2  control-label" for="department">department</label>
                         <div class="col-xs-10">
                         <input class="form-control" type="text" id="department" name="department"  placeholder="department">

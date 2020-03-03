@@ -14,7 +14,7 @@ public interface RoomBookingDao {
 	
 	public boolean closeBookStatus();
 	
-	public String getToDate(String status);
+	public String getToDate();
 	
 	 
 }

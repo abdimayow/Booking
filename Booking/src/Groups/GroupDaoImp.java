@@ -61,7 +61,7 @@ public class GroupDaoImp implements GroupDao {
 	
 				 status = rs.getString("status");
 				 
-				 System.out.println(status);
+				 System.out.println("checkgroupstates has returned " +status);
 					
 				 conn1.close();
 				 ps.close();
@@ -173,7 +173,7 @@ public class GroupDaoImp implements GroupDao {
 	}
 
 	@Override
-	public String getToDate(String status) {
+	public String getToDate() {
 		
 		String to ="";
 			
@@ -183,17 +183,19 @@ public class GroupDaoImp implements GroupDao {
 			
 			
 			conn1 = ConnectionProvider.getconn();
-			ps = conn1.prepareStatement("select todate from groupstatus where status=?");
-			ps.setString(1, status);
-			
-			
+			ps = conn1.prepareStatement("select todate from groupstatus ORDER BY id DESC LIMIT 1");
 			ResultSet rs = ps.executeQuery();
 			
-			while(rs.next()) {
-			
-				to = rs.getString("todate");
-					
-			}
+			if(rs.next()) {
+
+			 to = rs.getString("todate");
+			 
+			 System.out.println("gettodate in groupstatus has returned " +to);
+				
+			 conn1.close();
+			 ps.close();
+			 
+			  }
 			
 			
 			

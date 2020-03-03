@@ -39,15 +39,16 @@ public class LoginDaoImp implements LoginDao{
 			
 		String pass=sb.toString();	
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into students (name, regno, faculty, department, year, email, recoveryemail, password)values(?,?,?,?,?,?,?,?)");
+		ps = conn1.prepareStatement("insert into students (name, regno, faculty, gender, department, year, email, recoveryemail, password)values(?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, c.getName());	
 		ps.setString(2, c.getRegno());
 		ps.setString(3, c.getFaculty());
-		ps.setString(4, c.getDepartment());
-		ps.setString(5, c.getYear());
-		ps.setString(6, c.getEmail());
-		ps.setString(7, c.getRecoveryemail());
-		ps.setString(8, pass);
+		ps.setString(4, c.getGender());
+		ps.setString(5, c.getDepartment());
+		ps.setString(6, c.getYear());
+		ps.setString(7, c.getEmail());
+		ps.setString(8, c.getRecoveryemail());
+		ps.setString(9, pass);
 		status = ps.executeUpdate();
 		
 		conn1.close();
@@ -103,11 +104,12 @@ public class LoginDaoImp implements LoginDao{
 			c.setName(rs.getString(1));
 			c.setRegno(rs.getString(2));
 			c.setFaculty(rs.getString(3));
-			c.setDepartment(rs.getString(4));
-			c.setYear(rs.getString(5));
-			c.setEmail(rs.getString(6));
-			c.setRecoveryemail(rs.getString(7));		
-			c.setPassword(rs.getString(8));
+			c.setGender(rs.getString(4));
+			c.setDepartment(rs.getString(5));
+			c.setYear(rs.getString(6));
+			c.setEmail(rs.getString(7));
+			c.setRecoveryemail(rs.getString(8));		
+			c.setPassword(rs.getString(9));
 				
 			
 		}

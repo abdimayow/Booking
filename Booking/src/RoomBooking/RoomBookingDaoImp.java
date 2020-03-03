@@ -53,7 +53,7 @@ int status = 0;
 			while(rs.next()) {
 				 status = rs.getString("status");
 				 
-				 System.out.println(status);
+				 System.out.println("checkbookstatus has returned "+status);
 					
 	
 			}
@@ -152,32 +152,26 @@ int status = 0;
 	}
 
 	@Override
-	public String getToDate(String status) {
+	public String getToDate() {
         String to ="";
-		
-        BookStatus g = new BookStatus();
-		
+
 		
 		
 		try {
 			
 			
 			conn1 = ConnectionProvider.getconn();
-			ps = conn1.prepareStatement("select * from groupstatus where status=?");
-			ps.setString(1, status);
-			
+			ps = conn1.prepareStatement("select todate from bookstatus ORDER BY id DESC LIMIT 1");
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				g.setId(rs.getInt(1));
-				g.setFrom(rs.getString(2));
-				g.setTo(rs.getString(3));
-				g.setStatus(rs.getString(4));
+				 to= rs.getString("todate");
+				 
+				 System.out.println("gettodate in bookstatus has returned "+to);
 					
+	
 			}
-			
-			to = g.getTo();
 			
 			
 				}catch(Exception e){

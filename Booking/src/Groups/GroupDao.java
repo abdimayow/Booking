@@ -9,7 +9,7 @@ public interface GroupDao {
 	
 	public boolean closeGroup();
 	
-	public String getToDate(String status);
+	public String getToDate();
 
 	public String checkGroupstates();
 

@@ -26,7 +26,9 @@ public class Register2 extends HttpServlet {
 		 String submitype = request.getParameter("submit");
 			
 			
-		
+			String boys[] = {"John","Mark","Paul","Elvin","Aaron","Ali","Hassan","Jake","Juma","Harry","Henry","Kane"};
+			
+			String girls[] = {"Arya","Anya","Amber","Aliz","Mulki","Fatma","Jane","Rose","Zahra","Sofia","Agnes","Adele"};
 					
 					
 			
@@ -34,6 +36,7 @@ public class Register2 extends HttpServlet {
 				String regno = request.getParameter("regno"); 
 				String name = request.getParameter("name");	
 				String faculty = request.getParameter("faculty");
+				String gender  = request.getParameter("gender");
 				String department = request.getParameter("department");
 				String year = request.getParameter("year");
 				String email = request.getParameter("email");
@@ -93,8 +96,230 @@ public class Register2 extends HttpServlet {
 
 					
 				    response.sendRedirect("adminreg.jsp");
-					}
-			else {
+					}else if(submitype.equals("RHM")) {
+											
+						for(int i=0;i<boys.length;i++) {
+							String reg = "HB13/01";
+							String regno = reg+i+"/16"; 
+							String name = boys[i]+"h";	
+							String faculty = "HEALTH SCIENCE";
+							String gender  = "MALE";
+							String department = "NURSING";
+							String year = "2016";
+							String email = name+"@gmail.com";
+							String recoveryemail = name+2+"@gmail.com";
+							String password = name;
+							
+							Student c = new Student();
+							
+							c.setRegno(regno);
+							c.setName(name);
+							c.setFaculty(faculty );
+							c.setGender(gender);
+							c.setDepartment	(department);
+							c.setYear(year);
+							c.setEmail(email);
+							c.setRecoveryemail(recoveryemail);
+							c.setPassword(password);
+							
+							 int n = cd.insertStudent(c);
+							 
+							 System.out.println(n+i);
+						}
+						
+		                
+						 HttpSession session = request.getSession();
+						session.setAttribute("success","Health Science Male Student has been successfully registered");
+						
+					    response.sendRedirect("AutoRegister.jsp");	
+					
+							
+						}else if(submitype.equals("REM")) {
+							for(int i=0;i<boys.length;i++) {
+								String reg = "E13/01";
+								String regno = reg+i+"/16"; 
+								String name = boys[i]+"e";	
+								String faculty = "ENGINEERING";
+								String gender  = "MALE";
+								String department = "CIVIL";
+								String year = "2016";
+								String email = name+"@gmail.com";
+								String recoveryemail = name+2+"@gmail.com";
+								String password = name;
+								
+								Student c = new Student();
+								
+								c.setRegno(regno);
+								c.setName(name);
+								c.setFaculty(faculty );
+								c.setGender(gender);
+								c.setDepartment	(department);
+								c.setYear(year);
+								c.setEmail(email);
+								c.setRecoveryemail(recoveryemail);
+								c.setPassword(password);
+								
+								 int n = cd.insertStudent(c);
+								 
+								 System.out.println(n+i);
+							}
+							
+			                
+							 HttpSession session = request.getSession();
+							session.setAttribute("success","Engineering Science Male Student has been successfully registered");
+							
+						    response.sendRedirect("AutoRegister.jsp");	
+						
+								
+							}else if(submitype.equals("RNM")) {
+								for(int i=0;i<boys.length;i++) {
+									String reg = "S13/01";
+									String regno = reg+i+"/16"; 
+									String name = boys[i]+"s";	
+									String faculty = "SCIENCE";
+									String gender  = "MALE";
+									String department = "COMPUTER SCIENCE";
+									String year = "2016";
+									String email = name+"@gmail.com";
+									String recoveryemail = name+2+"@gmail.com";
+									String password = name;
+									
+									Student c = new Student();
+									
+									c.setRegno(regno);
+									c.setName(name);
+									c.setFaculty(faculty );
+									c.setGender(gender);
+									c.setDepartment	(department);
+									c.setYear(year);
+									c.setEmail(email);
+									c.setRecoveryemail(recoveryemail);
+									c.setPassword(password);
+									
+									 int n = cd.insertStudent(c);
+									 
+									 System.out.println(n+i);
+								}
+								
+				                
+								 HttpSession session = request.getSession();
+								session.setAttribute("success","Computer Science Male Student has been successfully registered");
+								
+							    response.sendRedirect("AutoRegister.jsp");	
+							
+									
+								}else if(submitype.equals("RHF")) {
+									for(int i=0;i<girls.length;i++) {
+										String reg = "HB13/10";
+										String regno = reg+i+"/16"; 
+										String name = girls[i]+"h";	
+										String faculty = "HEALTH SCIENCE";
+										String gender  = "FEMALE";
+										String department = "NURSING";
+										String year = "2016";
+										String email = name+"@gmail.com";
+										String recoveryemail = name+2+"@gmail.com";
+										String password = name;
+										
+										Student c = new Student();
+										
+										c.setRegno(regno);
+										c.setName(name);
+										c.setFaculty(faculty );
+										c.setGender(gender);
+										c.setDepartment	(department);
+										c.setYear(year);
+										c.setEmail(email);
+										c.setRecoveryemail(recoveryemail);
+										c.setPassword(password);
+										
+										 int n = cd.insertStudent(c);
+										 
+										 System.out.println(n+i);
+									}
+									
+					                
+									 HttpSession session = request.getSession();
+									session.setAttribute("success","Health Science Female  Student has been successfully registered");
+									
+								    response.sendRedirect("AutoRegister.jsp");	
+								
+										
+									}else if(submitype.equals("REF")) {
+										for(int i=0;i<girls.length;i++) {
+											String reg = "E13/10";
+											String regno = reg+i+"/16"; 
+											String name = girls[i]+"e";	
+											String faculty = "ENGINEERING";
+											String gender  = "FEMALE";
+											String department = "CIVIL";
+											String year = "2016";
+											String email = name+"@gmail.com";
+											String recoveryemail = name+2+"@gmail.com";
+											String password = name;
+											
+											Student c = new Student();
+											
+											c.setRegno(regno);
+											c.setName(name);
+											c.setFaculty(faculty );
+											c.setGender(gender);
+											c.setDepartment	(department);
+											c.setYear(year);
+											c.setEmail(email);
+											c.setRecoveryemail(recoveryemail);
+											c.setPassword(password);
+											
+											 int n = cd.insertStudent(c);
+											 
+											 System.out.println(n+i);
+										}
+										
+						                
+										 HttpSession session = request.getSession();
+										session.setAttribute("success","Engineering Science Female Student has been successfully registered");
+										
+									    response.sendRedirect("AutoRegister.jsp");	
+									
+											
+										}else if(submitype.equals("RNF")) {
+											for(int i=0;i<girls.length;i++) {
+												String reg = "S13/10";
+												String regno = reg+i+"/16"; 
+												String name = girls[i]+"s";	
+												String faculty = "SCIENCE";
+												String gender  = "FEMALE";
+												String department = "COMPUTER SCIENCE";
+												String year = "2016";
+												String email = name+"@gmail.com";
+												String recoveryemail = name+2+"@gmail.com";
+												String password = name;
+												
+												Student c = new Student();
+												
+												c.setRegno(regno);
+												c.setName(name);
+												c.setFaculty(faculty );
+												c.setGender(gender);
+												c.setDepartment	(department);
+												c.setYear(year);
+												c.setEmail(email);
+												c.setRecoveryemail(recoveryemail);
+												c.setPassword(password);
+												
+												 int n = cd.insertStudent(c);
+												 
+												 System.out.println(n+i);
+											}
+											
+							                
+											 HttpSession session = request.getSession();
+											session.setAttribute("success","Computer Science Female Student has been successfully registered");
+											
+										    response.sendRedirect("AutoRegister.jsp");	
+										
+												
+											}else {
 						 response.sendRedirect("register.jsp");
 				}
 			

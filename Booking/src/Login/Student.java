@@ -4,6 +4,7 @@ public class Student {
 	private String name;
 	private String regno;
 	private String faculty;
+	private String gender;
 	private String department;
 	private String year;
 	private String email;
@@ -22,6 +23,13 @@ public class Student {
 	}
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public String getDepartment() {
 		return department;

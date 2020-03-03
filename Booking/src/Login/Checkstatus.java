@@ -32,10 +32,10 @@ public class Checkstatus extends HttpServlet {
   
 		
 		
-	String bstatus = rm.checkBookStatus();	
+		
 	String gstatus=gd.checkGroupstates();
-	System.out.println(gstatus);
 
+	String bstatus = rm.checkBookStatus();
 	
 	if(gstatus.equals("YES")) {
 		
@@ -43,7 +43,10 @@ public class Checkstatus extends HttpServlet {
 	
 		LocalDate current = LocalDate.now();
 		
-		String to  = gd.getToDate("YES");
+
+		
+		String to  = gd.getToDate();
+		
 		
 		LocalDate  todate = LocalDate.parse(to);
 		
@@ -66,7 +69,7 @@ public class Checkstatus extends HttpServlet {
 		
 		LocalDate current = LocalDate.now();
 		
-		String to  = rm.getToDate("YES");
+		String to  = rm.getToDate();
 		
 		LocalDate  todate = LocalDate.parse(to);
 		

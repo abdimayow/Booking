@@ -55,57 +55,22 @@
 		            
                
                   
-                 <div class="col-xs-10 col-xs-offset-2 customDiv2"><h4 >insert Hostel Form</h4></div>
+                 <div class="col-xs-10 col-xs-offset-2 customDiv2"><h4 >insert Blocks Form</h4></div>
                     
              
                 <form class="form-horizontal"  action="insert" method="Post">
               
                     <div class="form-group">
-                        <label class="col-xs-2  control-label" for="regno">hostelname</label>
+                        <label class="col-xs-2  control-label" for="Blockname">Blockname</label>
                         <div class="col-xs-10">
-                        <input class="form-control" type="text" id="hostelname" name="hostelname" placeholder="hostelname">
+                        <input class="form-control" type="text" id="Blockname" name="Blockname" placeholder="Blockname">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="NoOfRooms">NoOfRooms</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="NoOfRooms" name="NoOfRooms" placeholder="NoOfRooms">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="NoOfSingleRooms">NoOfSingleRooms</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="NoOfSingleRooms" name="NoOfSingleRooms" placeholder="NoOfSingleRooms">
-                        </div>
-                    </div>                                       
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="NoOfDoubleRooms">NoOfDoubleRooms</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="NoOfDoubleRooms" name="NoOfDoubleRooms" placeholder="NoOfDoubleRooms">
-                        </div>
-                    </div>
-                      <div class="form-group">
-                        <label class="col-xs-2  control-label" for="NoOfTripleRooms">NoOfTripleRooms</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="NoOfTripleRooms" name="NoOfTripleRooms" placeholder="NoOfTripleRooms">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="NoOfQuadRooms">NoOfQuadRooms</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="NoOfQuadRooms" name="NoOfQuadRooms" placeholder="NoOfQuadRooms">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label" for="NoOfSextupleRooms">NoOfSextupleRooms</label>
-                        <div class="col-xs-10">
-                        <input class="form-control" type="text" id="NoOfSextupleRooms" name="NoOfSextupleRooms" placeholder="NoOfSextupleRooms">
-                        </div>
-                    </div>                    
+                  
                      <div class="form-group">
                        
                         <div class="col-xs-10 col-xs-offset-2">
-                      <input type="submit" name="submit" class="btn btn-primary" value="Add Hostels">
+                      <input type="submit" name="submit" class="btn btn-primary" value="Add Blocks">
                     </div>
                     </div>                                                                             
                 </form>

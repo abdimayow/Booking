@@ -3,11 +3,13 @@ package Blocks;
 public class Hostel {
 
 	private int hostelid;
+	private String hostelname;
 	private String NoOfRooms;
 	private String NoOfSingleRooms;
 	private String NoOfDoubleRooms;
 	private String NoOfTripleRooms;
 	private String NoOfQuadRooms;
+	private String NoOfSextupleRooms;
 	public int getHostelid() {
 		return hostelid;
 	}
@@ -44,5 +46,18 @@ public class Hostel {
 	public void setNoOfQuadRooms(String noOfQuadRooms) {
 		NoOfQuadRooms = noOfQuadRooms;
 	}
+	public String getHostelname() {
+		return hostelname;
+	}
+	public void setHostelname(String hostelname) {
+		this.hostelname = hostelname;
+	}
+	public String getNoOfSextupleRooms() {
+		return NoOfSextupleRooms;
+	}
+	public void setNoOfSextupleRooms(String noOfSextupleRooms) {
+		NoOfSextupleRooms = noOfSextupleRooms;
+	}
+    	
 
 }
