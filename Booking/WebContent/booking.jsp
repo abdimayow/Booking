@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Login.Student" %>    
+<%@ page import="Groups.groups" %> 
+<%@ page import="Groups.group2" %> 
+<%@ page import="Groups.group3" %>
+<%@ page import="Groups.group4" %>
+<%@ page import ="java.util.ArrayList" %>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +26,9 @@
     body{
     position:relative;
     }
-   
+     .dropdown-menu li{
+    cursor: pointer;
+    }
    .DivStyle{
     padding-top:40px;
     
@@ -78,6 +87,19 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
 }
+.modal2 {
+  display: block;
+  position: relative; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
 
 /* Modal Content/Box */
 .modal-content {
@@ -89,62 +111,69 @@
   
 }
 
+
 /* The Close Button */
-.close {
+
+.closee {
   color: #bbb;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-.close2 {
+.closeb {
   color: #bbb;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-.close3 {
-  color: #bbb;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-.close4 {
+.closeg {
   color: #bbb;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+
+.closee:hover,
+.closee:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-.close2:hover,
-.close2:focus {
+.closeb:hover,
+.closeb:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-.close3:hover,
-.close3:focus {
+.closeg:hover,
+.closeg:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-.close4:hover,
-.close4:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+
+
  
     </style>
 
 </head>
 <body data-spy="scroll" data-target="#MainNavbar" data-offset="100">
+<%
+if(session.getAttribute("regno")== null){
+	response.sendRedirect("student.jsp");
+}
+ArrayList<Student> b = new ArrayList<Student>();
+String f = "";
+String s = "";
+String groupname = "";
 
+
+
+
+
+%>
+ 
  
   <nav id="MainNavbar" class="nav navbar-inverse navbar-fixed-top">
   <div class="container ">
@@ -157,100 +186,61 @@
        </div>
      <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-       <li ><a class="active" href="#search">Search</a></li>
-       <li ><a href="#booking" > Booking</a></li>
+      <li ><a href="#History" >History</a></li>
       <li ><a href="#groups" >Groups</a></li>
-      <li ><a href="#uBook" >UnBook</a></li>
+      <li ><a href="#booking" > Booking</a></li>
+     
        </ul>
        <ul class="nav navbar-nav navbar-right">
-       <li ><a href="#">logout</a></li>
+       <li ><a href="logout.jsp">logout</a></li>
        
        </ul>
        </div>
        </div>
       </nav>
-      
 
-
-<div class="container main">
-
-      <div id="search" class="DivStyle">
-   <h2>Search</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
-   </div >
   
- 
-   <div id="booking" class="DivStyle">
-    <h2>Booking</h2>
-    
-     <div  class="DivStyle2">
-     <h3>Status</h3>
-     <div id="off" class="col-xs-12"> <h4>Booking is unavailable until grouping is closed</h4></div>
-     <div id="on" class="col-xs-12 "> <h4>Booking is available</h4></div>
-     <div class="col-xs-12"> <h4>Click on the Button to Change status</h4></div>
-      <div id="st" class="col-xs-2 dropdown">
-        <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
-            Status<span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a id="benable" >Enable</a></li>
-            <li><a id="bmyBtn">Disable</a></li>
-            <li><a id="bview">View</a></li>
-           
-        </ul>
-    </div>
-    
-    
+
+
+
+<div class="container">
+
+        <div class="row" style="min-height=200px;"></div>
+
+      <div id="History" class="DivStyle">
+   <h2>History</h2>
+
+  
+  <% if(session.getAttribute("successgrps") != null){
+	 s = (String)session.getAttribute("successgrps");
+	 session.removeAttribute("successgrps");
+	 %>
+	 
+ <div id = "success" class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+
+  <% if(request.getAttribute("failuregrps") != null){
+	 s = (String)request.getAttribute("failuregrps");
+	 request.removeAttribute("failuregrps");
+	 %>
+	 
+ <div id = "failure" class="alert alert-warning alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+  
+  
+  
    
-     
-     <div id="b-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
-   
-      
-  
- 
-  
-        <div id="bsetdate" class="modal">
-
-	    <!-- Modal content -->
-		    <div class="modal-content">
-				 <span class="close3">&times;</span>
-				     <form name="bsetDate" action="setBookStatus" method="Post">
-                              <div class="form-group">
-							     <label>from:</label> <input name="from" type="date" class="form-control" id="bfrom">
-							   </div>
-							   <div class="form-group">
-							      <label>to:</label> <input   name="to" type="date" class="form-control" id="bto">
-							   </div>
-							      <input type="submit" name="submit"  onClick="return validate2();" class="btn btn-primary"  value="confirmDate">
-					  </form>
-		    </div>
-
-     </div>
-  
-  
-  <!-- The Modal -->
-<div id="bModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close2">&times;</span>
-    <form name="setDate" action="setBookStatus" method="Post">
-     
-	   <p>Do you want to disable Booking?</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
-	   
-	   </form>
-  </div>
-
-</div>
-     </div>
         <div class="DivStyle2">
+        
+        
      <h3>Booked rooms</h3>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
     cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
@@ -265,43 +255,40 @@
     Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
      numquam aliquam assumenda deleniti facilis.
      </div>
-        <div id="Vrooms" class="DivStyle2">
-     <h3>Vacant rooms</h3>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-     </div>
-      
    </div >
-
   
-   <div id="groups" class="DivStyle">
+      <div id="groups" class="DivStyle">
     <h2>Groups</h2>
+    
   
+        <h3 id="offg">Grouping is unavailable </h3>
+        <h3 id="ong">Grouping is available</h3>
      <div  class="DivStyle2">
-     <h3>Status</h3>
+     <h3>Status: ${gstatus}</h3>
+
+    
      
-     <h4>Click on the Button to Change status</h4>
-      <div id="st2" class="col-xs-2 dropdown">
-        <a  class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+      <div id="st2" class="col-xs-2 dropdown ">
+        <a id="bsg" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a id="enable" >Enable</a></li>
-            <li><a id="myBtn">Disable</a></li>
-            <li><a id="view">View</a></li>
+            <li><a id="create">Create</a></li>
+           
            
         </ul>
     </div>
+          <div id="st2s" class="col-xs-2 dropdown ">
+        <a id="bsgs" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+            Status<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            
+            <li  id="exitlink"><a id="exit" >Exit</a></li>
+           
+        </ul>
+    </div>
+     
     
     
    
@@ -309,47 +296,209 @@
      <div id="St-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
       
-
-  
-    <!-- The Modal to set dates for groups -->
-<div id="gModal" class="modal">
+     <div id="exg" class="col-xs-12"><h3>Expiry:${gto}</h3></div>
+     
+     
+          <% if(session.getAttribute("grpnotification") != null){
+      String notice = (String)session.getAttribute("grpnotification");
+	   
+	     %>
+	     
+	        <!-- Create Modal -->
+<div id="memberModal" class="modal2">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close4">&times;</span>
-			<form name="setDate" action="setgroup" method="Post">
-			 <div class="form-group">
-			<label>from:</label> <input name="from" type="date" class="form-control" id="from">
-			</div>
-			<div class="form-group">
-			<label>to:</label> <input   name="to" type="date" class="form-control" id="to">
-			</div>
-			<input type="submit" name="submit" class="btn btn-primary" onClick="return validate();" value="confirmDate">
-			</form>
+   
+    <form  action="DeclineGroup" method="Post">
+     
+	   <p><%=notice %></p>  
+	   <input id="accept" type="submit" name="submit" class="btn btn-info float left"  value="accept">
+	   <input id="decline" type="submit" name="submit" class="btn btn-danger float right"  value="decline" >
+	   </form>
   </div>
 
-</div>
-  
-  
-  
-  <!-- The Modal -->
-<div id="myModal" class="modal">
+</div> 
+
+
+
+	     
+         <%} %>
+         
+        
+                  <% if(session.getAttribute("grpstatus") != null){
+      String notice = (String)session.getAttribute("grpstatus");
+	      
+	     %>
+	     
+	        <!-- Create Modal -->
+<div id="studentdecline" class="modal2">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <form name="setDate" action="setgroup" method="Post">
+   
+    <form  action="DeclineGroup" method="Post">
      
-	   <p>Do you want to disable group?</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   <p><%=notice %></p>  
+	   <input id="ad" type="submit" name="submit" class="btn btn-info float centre"  value="OK">
 	   
 	   </form>
+  </div>
+
+</div> 
+	     
+         <%} %>
+         
+         
+                           <% if(session.getAttribute("grpdeclined") != null){
+      String notice = (String)session.getAttribute("grpdeclined");
+	      
+	     %>
+	     
+	        <!-- Create Modal -->
+<div id="admindecline" class="modal2">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+   
+    <form  action="DeclineGroup" method="Post">
+     
+	   <p><%=notice %></p>  
+	   <input id="ad" type="submit" name="submit" class="btn btn-info float centre"  value="OK">
+	   
+	   </form>
+  </div>
+
+</div> 
+	     
+         <%} %>
+         
+         
+
+         
+          
+     
+
+     <% if((session.getAttribute("grpn") != null) || (request.getAttribute("grpn") != null)){
+    	 
+    	 if(request.getAttribute("grpn") == null){
+    		 groupname = (String)session.getAttribute("grpn");
+    	 }else{
+    		 groupname = (String)request.getAttribute("grpn");
+    	 }
+       
+	   
+	 %>
+	 
+		 <div id = "grpname" class="col-xs-12">
+		     <h3>Group name:<%=groupname %></h3> 
+		</div>  
+		
+		<%if((session.getAttribute("members") != null) || (request.getAttribute("members") != null)){
+			
+			if(request.getAttribute("members") == null){
+				 b = (ArrayList)session.getAttribute("members");
+			}else{
+				 b = (ArrayList)request.getAttribute("members");
+			}
+			
+			%>
+		
+			
+			
+			
+			
+		
+		    <div id = "members" class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered ">
+                    <thead>
+                     <tr>
+                         <td>
+                             Regno
+                         </td>
+                         <td>
+                             Name
+                         </td>
+                         <td>
+                             Status
+                         </td>
+
+                     </tr>
+                    </thead>
+                    <tbody>
+                         <%for(int i=0;i<b.size();i++){ %>
+                        <%Student c = b.get(i); %>
+                        
+                        <%  String status = "";
+                        
+                       if(c.getStatus().equals("P")){
+                       	status = "Pending";
+                       }else{
+                       	status = "Confirmed";
+                       	%>
+                       <% } %>
+                        <tr class="active">
+                            <td>
+                                <%=c.getRegno() %>
+                            </td>
+                            <td>
+                                <%=c.getName() %> 
+                            </td>
+                            <td>
+                                <%=status %>
+                            </td>
+  
+                        </tr>
+                        <%} %> 
+                      
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+        
+        <%} %>
+
+     <%} %>
+
+  
+ 
+   <!-- Create Modal -->
+<div id="creategroup" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="closeg">&times;</span>
+    <form name="setDate" action="userstatus" method="Post">
+     
+	   <p>Do you want to create a new  group?</p>  
+	   <input type="submit" name="submit" class="btn btn-primary"  value="confirm">
+	   
+	   </form>
+  </div>
+
+</div> 
+  
+  <!-- The Modal -->
+<div id="exitgroup" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="closee">&times;</span>
+    <form name="setDate" action="DeclineGroup" method="Post">
+     
+	   <p>Do you want to exit group?</p>  
+	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   
+	 </form>
   </div>
 
 </div>
         
        
      </div>
+     
           <div  class="DivStyle2">
      <h3>View</h3>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
@@ -367,23 +516,22 @@
      </div>
    
    </div >
-
-
-<div id="uBook" class="DivStyle">
-    <h2>Unbook</h2>
-  
+ 
+   <div id="booking" class="DivStyle">
+    <h2>Booking</h2>
+    
      <div  class="DivStyle2">
      <h3>Status</h3>
+     <div id="offb" class="col-xs-12"> <h4>Booking is unavailable </h4></div>
+     <div id="onb" class="col-xs-12 "> <h4>Booking is available</h4></div>
      
-     <h4>Click on the Button to Change status</h4>
-      <div id="st2" class="col-xs-2 dropdown">
-        <a  class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+      <div id="st" class="col-xs-2 dropdown">
+        <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a id="enable" >Enable</a></li>
-            <li><a id="myBtn">Disable</a></li>
-            <li><a id="view">View</a></li>
+            <li><a href="#" >Book</a></li>
+            <li><a href="#">View</a></li>
            
         </ul>
     </div>
@@ -391,67 +539,40 @@
     
    
      
-     <div id="St-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
+     <div id="b-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
       
-
   
-    <!-- The Modal to set dates for groups -->
-<div id="gModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close4">&times;</span>
-			<form name="setDate" action="setgroup" method="Post">
-			 <div class="form-group">
-			<label>from:</label> <input name="from" type="date" class="form-control" id="from">
-			</div>
-			<div class="form-group">
-			<label>to:</label> <input   name="to" type="date" class="form-control" id="to">
-			</div>
-			<input type="submit" name="submit" class="btn btn-primary" onClick="return validate();" value="confirmDate">
-			</form>
-  </div>
-
-</div>
+ 
   
+
   
   
   <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="bModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <form name="setDate" action="setgroup" method="Post">
+    <span class="closeb">&times;</span>
+    <form name="setDate" action="" method="Post">
      
-	   <p>Do you want to disable group?</p>  
+	   <p>Do you want to unbook?</p>  
 	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
 	   
 	   </form>
   </div>
 
 </div>
-        
-       
      </div>
-          <div  class="DivStyle2">
-     <h3>View</h3>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-     </div>
-   
+
+
    </div >
+
+  
+
+
+
+
    </div >
    
  
@@ -469,26 +590,67 @@
   
     <script type="text/javascript">
     $(document).ready(function(){
+  
+   
+    		
+        	setTimeout(function(){
+        		$('#success').hide('fade')
+        	},4500);
+        	setTimeout(function(){
+        		$('#failure').hide('fade')
+        	},4500);
+    
+    	
+  
+
+    
+    	
+
+    		
+    		
+    
+     
+    	
+    	
+    	
     	var status = '${gstatus}';
     	var bstatus = '${bstatus}';
+    	var gstatus = '${ustatus}';
 if(status == 'YES'){
 	$('#St-btn').addClass('active');	
-	$('#on').addClass('hide');
-	$('#off').removeClass('hide');
-	$('#bst').addClass('disabled');
+	$('#offg').addClass('hide');
+	$('#ong').removeClass('hide');
+	$('#exg').removeClass('hide');
+	$('#groupname').removeClass('hide');
+	$('#members').removeClass('hide');
+	$('#bsg').removeClass('disabled');
+	$('#bsgs').removeClass('disabled');
     	}
 else{
 	$('#St-btn').removeClass('active');	
-	$('#on').removeClass('hide');
-	$('#off').addClass('hide');
-	$('#bst').removeClass('disabled');
+	$('#ong').addClass('hide');
+	$('#exg').addClass('hide');
+	$('#offg').removeClass('hide');
+	$('#bsg').addClass('disabled');
+	$('#bsgs').addClass('disabled');
 	
 }
 if(bstatus == 'YES'){
 	$('#b-btn').addClass('active');
+	$('#offb').addClass('hide');
+	$('#onb').removeClass('hide');
+	$('#bst').removeClass('disabled');
 }
 else{
 	$('#b-btn').removeClass('active');	
+	$('#onb').addClass('hide');
+	$('#offb').removeClass('hide');
+	$('#bst').addClass('disabled');
+}
+if(gstatus == "S"){
+	$('#st2s').addClass('hide');
+}else{
+	$('#st2').addClass('hide');
 }
 	
     	var alterClass= function(){
@@ -496,10 +658,12 @@ else{
         if(ww<450){
         	$('#st').removeClass('col-xs-2').addClass('col-xs-5');
         	$('#st2').removeClass('col-xs-2').addClass('col-xs-5');
+        	$('#st2s').removeClass('col-xs-2').addClass('col-xs-5');
         }else {
         	
         	$('#st').addClass('col-xs-2').removeClass('col-xs-5');
         	$('#st2').addClass('col-xs-2').removeClass('col-xs-5');
+        	$('#st2s').addClass('col-xs-2').removeClass('col-xs-5');
         };
     	};
         $(window).resize(function(){
@@ -554,63 +718,55 @@ else{
     }
     	
  // Get the modal
-    var modal = document.getElementById("myModal");
-    var modal2 = document.getElementById("bModal");
-    var modal3 = document.getElementById("bsetdate");
-    var modal4 = document.getElementById("gModal");
+    var creategroup = document.getElementById("creategroup");
+    var exitgroup = document.getElementById("exitgroup");
+    
+    
     // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-    var btn2 = document.getElementById("bmyBtn");
-    var btn3 = document.getElementById("benable");
-    var btn4 = document.getElementById("enable");
+    var create = document.getElementById("create");
+    var exit = document.getElementById("exit");
+    
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    var span2 = document.getElementsByClassName("close2")[0];
-    var span3 = document.getElementsByClassName("close3")[0];
-    var span4 = document.getElementsByClassName("close4")[0];
+    var closeg = document.getElementsByClassName("closeg")[0];
+    var closee = document.getElementsByClassName("closee")[0];
+
     // When the user clicks on the button, open the modal
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    btn2.onclick = function() {
-        modal2.style.display = "block";
+
+    create.onclick = function() {
+    	creategroup.style.display = "block";
       }
-    btn3.onclick = function() {
-        modal3.style.display = "block";
-      }
-    btn4.onclick = function() {
-        modal4.style.display = "block";
+    exit.onclick = function() {
+    	exitgroup.style.display = "block";
       }
 
+
+
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-    span2.onclick = function() {
-        modal2.style.display = "none";
+
+    closeg.onclick = function() {
+    	creategroup.style.display = "none";
       }
-    span3.onclick = function() {
-        modal3.style.display = "none";
+    closee.onclick = function() {
+    	exitgroup.style.display = "none";
       }
-    span4.onclick = function() {
-        modal4.style.display = "none";
-      }
+
 
    // When the user clicks anywhere outside of the modal, close it
    window.onclick = function(event) {
-	   if (event.target == modal) {
-	        modal.style.display = "none";
-	      }
-      if (event.target == modal2) {
-        modal2.style.display = "none";
-      }
-      if (event.target == modal3) {
-          modal3.style.display = "none";
-        }
-      if (event.target == modal4) {
-          modal4.style.display = "none";
+
+      if (event.target == creategroup) {
+    	  creategroup.style.display = "none";
+        } 
+      if (event.target == exitgroup) {
+    	  exitgroup.style.display = "none";
         } 
     }
+   
+
+   
+   
+   
+   
     
     </script>
 </body>

@@ -13,7 +13,76 @@
     <link href="bootstrap-3/css/bootstrap.min.css" rel="stylesheet">
 
    
+   <script type="text/javascript">
    
+   function checkForm()
+   {
+   	var from = document.getElementById('from').value;
+   	var to = document.getElementById('to').value;
+   	today = new Date();
+   	var td = today.getDate();
+   	var tm = today.getMonth()+1; //As January is 0.
+   	var ty = today.getFullYear();
+   	
+
+ //use split()    to conc str into 	YY MM DD 
+ const splitfromdate = from.split("-");
+ const splittodate = to.split("-");
+// use parseInt() to convert str to int
+
+var fromyear =  parseInt(splitfromdate[0]);
+var frommonth =  parseInt(splitfromdate[1]);
+var fromdate =  parseInt(splitfromdate[2]);
+
+var toyear =  parseInt(splittodate[0]);
+var tomonth =  parseInt(splittodate[1]);
+var todate =  parseInt(splittodate[2]);
+alert(todate);
+
+//check for the year
+if(fromyear != ty){
+	alert("From year should be this year");
+	document.getElementById('from').focus();
+	return false;
+}
+if(toyear != ty){
+	alert("To year should be this year");
+	document.getElementById('to').focus();
+	return false;
+}
+//check for the month
+if(frommonth != tm){
+	alert("From month should be this month");
+	document.getElementById('from').focus();
+	return false;
+}
+if(tomonth != tm){
+	alert("To month should be this month");
+	document.getElementById('to').focus();
+	return false;
+}
+
+//check for the days
+if(fromdate < td){
+	alert("From date should be from today upto the end of this month");
+	document.getElementById('from').focus();
+	return false;
+}
+
+//Compare to and from days
+if(todate < fromdate){
+	alert("To date should be after from date");
+	document.getElementById('to').focus();
+	return false;
+	
+}
+
+
+
+ 
+   }
+   
+   </script>
 
     <style>
     body{
@@ -24,6 +93,9 @@
     padding-top:40px;
     
 
+    }
+    .dropdown-menu li{
+    cursor: pointer;
     }
     .DivStyle2{
     margin-top:10px;
@@ -144,7 +216,17 @@
 
 </head>
 <body data-spy="scroll" data-target="#MainNavbar" data-offset="100">
+<%
+if(session.getAttribute("id")== null){
+	response.sendRedirect("admin.jsp");
+}
 
+
+
+
+
+
+%>
  
   <nav id="MainNavbar" class="nav navbar-inverse navbar-fixed-top">
   <div class="container ">
@@ -166,7 +248,7 @@
       <li ><a href="#unBook" >UnBook</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-       <li ><a href="#">logout</a></li>
+       <li ><a href="logout.jsp">logout</a></li>
        
        </ul>
        </div>
@@ -193,10 +275,10 @@
     <h2>Booking</h2>
     
      <div  class="DivStyle2">
-     <h3>Status</h3>
+     <h3>Status: ${bstatus}</h3>
      <div id="off" class="col-xs-12"> <h4>Booking is unavailable until grouping is closed</h4></div>
      <div id="on" class="col-xs-12 "> <h4>Booking is available</h4></div>
-     <div class="col-xs-12"> <h4>Click on the Button to Change status</h4></div>
+     <div id="on1" class="col-xs-12"> <h4>Click on the Button to Change status</h4></div>
       <div id="st" class="col-xs-2 dropdown">
         <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
             Status<span class="caret"></span>
@@ -290,29 +372,44 @@
    <div id="groups" class="DivStyle">
     <h2>Groups</h2>
   
+  
+        <h3 id="offg">Grouping is unavailable </h3>
+        <h3 id="ong">Grouping is available</h3>
+  
      <div  class="DivStyle2">
-     <h3>Status</h3>
      
+     <h3>Status: ${gstatus}</h3>
+
      <h4>Click on the Button to Change status</h4>
       <div id="st2" class="col-xs-2 dropdown">
-        <a  class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bsg" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             <li><a id="enable" >Enable</a></li>
-            <li><a id="myBtn">Disable</a></li>
-            <li><a id="view">View</a></li>
+            
+            
            
         </ul>
     </div>
-    
+    <div id="st2s" class="col-xs-2 dropdown">
+        <a id="bsgs" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+            Status<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a id="edit" >Edit</a></li>
+            <li><a id="myBtn">Disable</a></li>
+            
+           
+        </ul>
+    </div>
     
    
      
      <div id="St-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
       
-
+     <div id="exg" class="col-xs-12"><h3>Expiry:${gto}</h3></div>
   
     <!-- The Modal to set dates for groups -->
 <div id="gModal" class="modal">
@@ -322,12 +419,12 @@
     <span class="close4">&times;</span>
 			<form name="setDate" action="setgroup" method="Post">
 			 <div class="form-group">
-			<label>from:</label> <input name="from" type="date" class="form-control" id="from">
+			<label>from:</label> <input name="from" type="date" class="form-control" id="from" required>
 			</div>
 			<div class="form-group">
-			<label>to:</label> <input   name="to" type="date" class="form-control" id="to">
+			<label>to:</label> <input   name="to" type="date" class="form-control" id="to" required>
 			</div>
-			<input type="submit" name="submit" class="btn btn-primary" onClick="return validate();" value="confirmDate">
+			<input type="submit" name="submit" class="btn btn-primary" onClick="return checkForm();" value="confirmDate">
 			</form>
   </div>
 
@@ -432,16 +529,48 @@
     	var bstatus = '${bstatus}';
 if(status == 'YES'){
 	$('#St-btn').addClass('active');	
-	$('#on').addClass('hide');
+
+	$('#offg').addClass('hide');
+	$('#ong').removeClass('hide');
+	$('#exg').removeClass('hide');
 	$('#off').removeClass('hide');
+	$('#on').addClass('hide');
+	$('#on1').addClass('hide');
 	$('#bst').addClass('disabled');
+	$('#st2').addClass('hide');
+	$('#st2s').removeClass('hide');
     	}
 else{
 	$('#St-btn').removeClass('active');	
-	$('#on').removeClass('hide');
+
+	$('#offg').removeClass('hide');
+	$('#ong').addClass('hide');
+	$('#exg').addClass('hide');
 	$('#off').addClass('hide');
+    $('#on').removeClass('hide');
+    $('#on1').removeClass('hide');
 	$('#bst').removeClass('disabled');
+	$('#st2s').addClass('hide');
+	$('#st2').removeClass('hide');
 	
+}
+if(bstatus == 'YES'){
+ $('#b-btn').addClass('active');
+ $('#bst').removeClass('disabled');
+ $('#on').removeClass('hide');
+ $('#on1').removeClass('hide');
+ $('#off').addClass('hide');
+ $('#bsg').addClass('disabled');
+ $('#bsgs').addClass('disabled');
+}
+else{
+	$('#b-btn').removeClass('active');
+	
+	$('#on').addClass('hide');
+	$('#on1').addClass('hide');
+	$('#off').removeClass('hide');
+	$('#bsg').removeClass('disabled');
+	$('#bsgs').removeClass('disabled');
 }
 
 	
@@ -450,10 +579,12 @@ else{
         if(ww<450){
         	$('#st').removeClass('col-xs-2').addClass('col-xs-5');
         	$('#st2').removeClass('col-xs-2').addClass('col-xs-5');
+        	$('#st2s').removeClass('col-xs-2').addClass('col-xs-5');
         }else {
         	
         	$('#st').addClass('col-xs-2').removeClass('col-xs-5');
         	$('#st2').addClass('col-xs-2').removeClass('col-xs-5');
+        	$('#st2s').addClass('col-xs-2').removeClass('col-xs-5');
         };
     	};
         $(window).resize(function(){
@@ -469,44 +600,13 @@ else{
     	
     });
    
-    function validate(){
-    	var from = document.setDate.from.value;
-    	var to = document.setDate.to.value;
-    	var today = new Date();
-    	from = new Date(from);
-    	to  = new Date(to);
 
-    	if((from<today) || (to<today)){
-    		document.write("please select a date greater than today");
-    	    return false;
-    	}
-    	else if(to<from){
-    		document.write("please select a date greater than start date");
-    		return false;
-    		}
     	
-    	
+	
 
-    }
     
-    function validate2(){
-    	var from = document.bsetDate.from.value;
-    	var to = document.bsetDate.to.value;
-    	var today = new Date();
-    	from = new Date(from);
-    	to  = new Date(to);
-
-    	
-    	if((from<today) || (to<today)){
-    		document.write("please select a date greater than today");
-    	    return false;
-    	}
-    	else if(to<from){
-    		document.write("please select a date greater than start date");
-    		return false;
-    		}
-    }
-    	
+    
+	
  // Get the modal
     var modal = document.getElementById("myModal");
     var modal2 = document.getElementById("bModal");
@@ -517,6 +617,7 @@ else{
     var btn2 = document.getElementById("bmyBtn");
     var btn3 = document.getElementById("benable");
     var btn4 = document.getElementById("enable");
+    var btn5 = document.getElementById("edit");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
     var span2 = document.getElementsByClassName("close2")[0];
@@ -533,6 +634,9 @@ else{
         modal3.style.display = "block";
       }
     btn4.onclick = function() {
+        modal4.style.display = "block";
+      }
+    btn5.onclick = function() {
         modal4.style.display = "block";
       }
 

@@ -55,6 +55,7 @@ public class SetGroup extends HttpServlet {
 		if( now.equals("NO")) {
 			int one = gd.insertGroup(g);
 			session.setAttribute("gstatus","YES");
+			session.setAttribute("gto",g.getTo());
 			System.out.println(one);
 			
 			
@@ -64,6 +65,7 @@ public class SetGroup extends HttpServlet {
 			int one = gd.insertGroup(g);
 			System.out.println(one);
 			session.setAttribute("gstatus","YES");
+			session.setAttribute("gto",g.getTo());
 		}
 		 
 		
@@ -82,6 +84,10 @@ public class SetGroup extends HttpServlet {
 		}
 		 response.sendRedirect("home.jsp");
 	  } 
+	  
+	  if(submitype.equals("creategroup")) {
+		  response.sendRedirect("booking.jsp");
+	  }
 	  
 	  
 	}

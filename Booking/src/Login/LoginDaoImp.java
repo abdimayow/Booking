@@ -110,6 +110,9 @@ public class LoginDaoImp implements LoginDao{
 			c.setEmail(rs.getString(7));
 			c.setRecoveryemail(rs.getString(8));		
 			c.setPassword(rs.getString(9));
+			c.setStatus(rs.getString(10));
+			c.setGrp(rs.getString(11));
+			c.setReg(rs.getString(12));
 				
 			
 		}

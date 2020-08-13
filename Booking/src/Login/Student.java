@@ -10,6 +10,9 @@ public class Student {
 	private String email;
 	private String recoveryemail;
 	private String password;
+	private String status;
+	private String grp;
+	private String reg;
 	public String getRegno() {
 		return regno;
 	}
@@ -66,6 +69,24 @@ public class Student {
 	}
 	public void setRecoveryemail(String recoveryemail) {
 		this.recoveryemail = recoveryemail;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getGrp() {
+		return grp;
+	}
+	public void setGrp(String grp) {
+		this.grp = grp;
+	}
+	public String getReg() {
+		return reg;
+	}
+	public void setReg(String reg) {
+		this.reg = reg;
 	}
 	
 	

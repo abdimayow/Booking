@@ -59,7 +59,9 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("name", c.getName());
 			session.setAttribute("regno",c.getRegno());
-
+			
+			System.out.println(c.getRegno());
+			session.setAttribute("user","isStudent");
 		
 		    response.sendRedirect("checkstatus");	
 		    
@@ -79,7 +81,7 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("firstname", a.getName());
 				session.setAttribute("id",a.getId());
-	
+	            session.setAttribute("user","isAdmin");
 			    response.sendRedirect("checkstatus");
 				}
 				else if(submitype.equals("Login Admin") && (a.getName()==null)) {
