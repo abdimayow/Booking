@@ -4,6 +4,7 @@ public class Blocks {
  
     private int blockid;
     private String blockname;
+    private String category;
 	public int getBlockid() {
 		return blockid;
 	}
@@ -15,6 +16,12 @@ public class Blocks {
 	}
 	public void setBlockname(String blockname) {
 		this.blockname = blockname;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
     
     

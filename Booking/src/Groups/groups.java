@@ -5,6 +5,7 @@ public class groups {
 	private int groupid;
 	private String groupname;
 	private String NoOfMembers;
+	private String category;
 	private String leader;
 	private String Message; 
 	private String checked;
@@ -43,6 +44,12 @@ public class groups {
 	}
 	public void setChecked(String checked) {
 		this.checked = checked;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	} 
 	
 	

@@ -63,6 +63,11 @@ public class Checkstatus extends HttpServlet {
 		if(todate.compareTo(current) > 0) {
 			gstatus = "YES";
 			
+			ArrayList<groups> gs= gd.getroup();
+			if(gs != null) {
+				session.setAttribute("groups", gs);	
+			}
+			
 			String reg = (String)session.getAttribute("regno");
 			
 			//If the user is a student
@@ -83,6 +88,11 @@ public class Checkstatus extends HttpServlet {
 					     Student leader = gd.getRegno(g2.getLeader());
 					     Student snd = gd.getRegno(g2.getRegno2());
 					     
+					    String status = snd.getStatus();
+					    if(status.equals("P")) {
+					    	session.setAttribute("incomplete", "Members should confirm membership before deadline!");
+					    }
+					     
 					     ArrayList <Student> members = new ArrayList<Student>();
 					     members.add(leader);
 					     members.add(snd);
@@ -98,6 +108,10 @@ public class Checkstatus extends HttpServlet {
 						     Student snd = gd.getRegno(g3.getRegno2());
 						     Student trd = gd.getRegno(g3.getRegno3());
 						    
+							    if(snd.getStatus().equals("P") || trd.getStatus().equals("P")) {
+							    	session.setAttribute("incomplete", "Members should confirm membership before deadline!");
+							    }
+						     
 						     
 						     ArrayList <Student> members = new ArrayList<Student>();
 						     members.add(leader);
@@ -116,6 +130,9 @@ public class Checkstatus extends HttpServlet {
 						     Student trd = gd.getRegno(g4.getRegno3());
 						     Student frt = gd.getRegno(g4.getRegno4());
 						    
+							    if(snd.getStatus().equals("P") || trd.getStatus().equals("P") || frt.getStatus().equals("P")){
+							    	session.setAttribute("incomplete", "Members should confirm membership before deadline!");
+							    }
 						     
 						     ArrayList <Student> members = new ArrayList<Student>();
 						     members.add(leader);
@@ -344,6 +361,7 @@ public class Checkstatus extends HttpServlet {
 	
 
 		if(user.equals("isAdmin")) {
+					
 			session.setAttribute("gstatus", gstatus);
 			session.setAttribute("bstatus", bstatus);
 			session.setAttribute("gto", gto);

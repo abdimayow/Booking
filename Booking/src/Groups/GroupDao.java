@@ -1,5 +1,8 @@
 package Groups;
 
+import java.util.ArrayList;
+
+import Blocks.Blocks;
 import Login.Student;
 
 public interface GroupDao {
@@ -17,9 +20,12 @@ public interface GroupDao {
 	public int insertgroup4(group4 g);
 	public int deletegroup4(String leader);
 	
+	public ArrayList<groups> getgroups();
+	public ArrayList<groups> getspecificgroups(String category);
+
 	public groups getgroup(String leader);
 	public groups group(int gid);
-	
+	public ArrayList<groups> getroup();
 	public group2 getgroup2(String leader);
 	public group2 student2(String regno2);
 	

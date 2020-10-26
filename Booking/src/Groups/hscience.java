@@ -67,14 +67,17 @@ public class hscience extends HttpServlet {
 			    	  for(int i=0;i<reg3.length;i++)	{
 			    		  System.out.println(reg3[i]);
 			    		  Student stu = gd.getRegno(reg3[i]);
-			    		  if(stu.getFaculty() != faculty) {
+			    		  System.out.println(stu.getName());
+			    		  System.out.println(stu.getFaculty());
+			    		  System.out.println(faculty);
+			    		  if(!(stu.getFaculty().equals(faculty))) {
 			    			  int one = gd.removegroup((String)session.getAttribute("regno"));
 			    			request.setAttribute("failuregrps", "Student "+stu.getRegno()+" is not from "+faculty);
 							RequestDispatcher rd = request.getRequestDispatcher("Creategroup.jsp");
 							rd.forward(request, response);
 							
 			    		  }
-			    		  if(stu.getGender() != gender) {
+			    		  if(!(stu.getGender().equals(gender))) {
 			    			  int one = gd.removegroup((String)session.getAttribute("regno"));
 			    			request.setAttribute("failuregrps", "Student "+stu.getRegno()+" is not "+gender);
 							RequestDispatcher rd = request.getRequestDispatcher("Creategroup.jsp");

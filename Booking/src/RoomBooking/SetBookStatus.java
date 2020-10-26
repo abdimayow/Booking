@@ -47,6 +47,8 @@ public class SetBookStatus extends HttpServlet {
 			  
 			if( now.equals("NO")) {
 				int one = rm.insertBookingStatus(g);
+				String bto = rm.getToDate();
+				session.setAttribute("bto", bto);
 				session.setAttribute("bstatus","YES");
 				System.out.println(one);
 				
@@ -55,6 +57,8 @@ public class SetBookStatus extends HttpServlet {
 			else {
 				rm.closeBookStatus();
 				int one = rm.insertBookingStatus(g);
+				String bto = rm.getToDate();
+				session.setAttribute("bto", bto);
 				System.out.println(one);
 				session.setAttribute("bstatus","YES");
 			}
@@ -69,6 +73,7 @@ public class SetBookStatus extends HttpServlet {
 				
 				rm.closeBookStatus();
 				session.setAttribute("bstatus","NO");
+				session.removeAttribute("bto");
 			}
 			else {
 				session.setAttribute("disabled","Book is already disabled");

@@ -15,6 +15,29 @@
    
    <script type="text/javascript">
    
+   function validatereg(){
+	    
+		var reg = document.bookstu.regno.value;
+
+
+		var regi = /\w\d{2}\/\d{4}\/\d{2}/;
+	    var regi2 = /\w{2}\d{2}\/\d{4}\/\d{2}/;
+	    var regi3 = /\w\d{2}\/\d{3}\/\d{2}/;
+	    var regi4 = /\w{2}\d{2}\/\d{3}\/\d{2}/;
+	     if(reg == ""){
+	    	 alert("enter registration number");
+	    	 document.bookstu.regno.focus();
+	    	 return false;
+	     }
+	      if(regi.test(reg) == false && regi2.test(reg)== false && regi3.test(reg)== false && regi4.test(reg)== false){
+	    		alert("Enter registration number separated by '/'");
+	    	 	document.bookstu.regno.focus();
+	    	 	return false
+	     }
+	 	   
+	     
+	    }
+   
    function checkForm()
    {
    	var from = document.getElementById('from').value;
@@ -37,7 +60,74 @@ var fromdate =  parseInt(splitfromdate[2]);
 var toyear =  parseInt(splittodate[0]);
 var tomonth =  parseInt(splittodate[1]);
 var todate =  parseInt(splittodate[2]);
-alert(todate);
+
+
+//check for the year
+if(fromyear != ty){
+	alert("From year should be this year");
+	document.getElementById('from').focus();
+	return false;
+}
+if(toyear != ty){
+	alert("To year should be this year");
+	document.getElementById('to').focus();
+	return false;
+}
+//check for the month
+if(frommonth != tm){
+	alert("From month should be this month");
+	document.getElementById('from').focus();
+	return false;
+}
+if(tomonth != tm){
+	alert("To month should be this month");
+	document.getElementById('to').focus();
+	return false;
+}
+
+//check for the days
+if(fromdate < td){
+	alert("From date should be from today upto the end of this month");
+	document.getElementById('from').focus();
+	return false;
+}
+
+//Compare to and from days
+if(todate < fromdate){
+	alert("To date should be after from date");
+	document.getElementById('to').focus();
+	return false;
+	
+}
+
+
+
+ 
+   }
+   
+   function checkFormb()
+   {
+   	var from = document.getElementById('bfrom').value;
+   	var to = document.getElementById('bto').value;
+   	today = new Date();
+   	var td = today.getDate();
+   	var tm = today.getMonth()+1; //As January is 0.
+   	var ty = today.getFullYear();
+   	
+
+ //use split()    to conc str into 	YY MM DD 
+ const splitfromdate = from.split("-");
+ const splittodate = to.split("-");
+// use parseInt() to convert str to int
+
+var fromyear =  parseInt(splitfromdate[0]);
+var frommonth =  parseInt(splitfromdate[1]);
+var fromdate =  parseInt(splitfromdate[2]);
+
+var toyear =  parseInt(splittodate[0]);
+var tomonth =  parseInt(splittodate[1]);
+var todate =  parseInt(splittodate[2]);
+
 
 //check for the year
 if(fromyear != ty){
@@ -150,9 +240,33 @@ if(todate < fromdate){
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
 }
+.Nmodal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  
+
+}
 
 /* Modal Content/Box */
 .modal-content {
+  background-color: #fefefe;
+  margin : 15% auto; /* 15% from the top and centered */
+  padding: 50px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  
+}
+.Nmodal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -162,7 +276,7 @@ if(todate < fromdate){
 }
 
 /* The Close Button */
-.close {
+.close1 {
   color: #bbb;
   float: right;
   font-size: 28px;
@@ -180,15 +294,17 @@ if(todate < fromdate){
   font-size: 28px;
   font-weight: bold;
 }
-.close4 {
+.close4
+
+ {
   color: #bbb;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close1:hover,
+.close1:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -206,7 +322,9 @@ if(todate < fromdate){
   cursor: pointer;
 }
 .close4:hover,
-.close4:focus {
+.close4:focus
+
+ {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -220,12 +338,8 @@ if(todate < fromdate){
 if(session.getAttribute("id")== null){
 	response.sendRedirect("admin.jsp");
 }
-
-
-
-
-
-
+String f1 = "";
+String s= "";
 %>
  
   <nav id="MainNavbar" class="nav navbar-inverse navbar-fixed-top">
@@ -242,10 +356,10 @@ if(session.getAttribute("id")== null){
        <li ><a class="active" href="#search">Search</a></li>
        <li ><a href="#booking" > Booking</a></li>
       <li ><a href="#groups" >Groups</a></li>
-      <li ><a href="#bRooms" >Booked-Rooms</a></li>
+      <li ><a href="#blocks" >Blocks</a></li>
       <li ><a href="#vRooms" >Vacant-Rooms</a></li>
       <li ><a href="#book" >Book</a></li>
-      <li ><a href="#unBook" >UnBook</a></li>
+      
        </ul>
        <ul class="nav navbar-nav navbar-right">
        <li ><a href="logout.jsp">logout</a></li>
@@ -257,10 +371,50 @@ if(session.getAttribute("id")== null){
       
 
 
-<div class="container main">
+<div class="container">
 
+
+ 
+  <% if(request.getAttribute("failuregrps") != null){
+	 f1 = (String)request.getAttribute("failuregrps");
+	 request.removeAttribute("failuregrps");
+	 %>
+	 
+ <div id = "failure1" class="alert alert-danger alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= f1 %> 
+</div>  
+
+<%} %>
+ 
       <div id="search" class="DivStyle">
+   
    <h2>Search</h2>
+     <div class="row" style="min-height=200px;"></div>
+     <% if(session.getAttribute("failurebooking") != null){
+	 s = (String)session.getAttribute("failurebooking");
+	 session.removeAttribute("failurebooking");
+	 %>
+	 
+ <div id = "failure2" class="alert alert-danger alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+     <% if(session.getAttribute("successbooking") != null){
+	 s = (String)session.getAttribute("successbooking");
+	 session.removeAttribute("successbooking");
+	 %>
+	 
+ <div id = "success1" class="alert alert-danger alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+
+   
            <form class="form-inline" action="" role="search">
              <div class="form-group">
              <input type="text" class="form-control" placeholder="registration number" />
@@ -275,18 +429,29 @@ if(session.getAttribute("id")== null){
     <h2>Booking</h2>
     
      <div  class="DivStyle2">
-     <h3>Status: ${bstatus}</h3>
-     <div id="off" class="col-xs-12"> <h4>Booking is unavailable until grouping is closed</h4></div>
-     <div id="on" class="col-xs-12 "> <h4>Booking is available</h4></div>
-     <div id="on1" class="col-xs-12"> <h4>Click on the Button to Change status</h4></div>
+    <div id="b" class="col-xs-12"> <h3>Status: ${bstatus}</h3></div>
+     <div id="off1b" class="col-xs-12 hide"> <h4>Booking is unavailable until grouping is closed</h4></div>
+     <div id="onb" class="col-xs-12 hide"> <h4>Booking is available</h4></div>
+     <div id="offb" class="col-xs-12 hide"> <h4>Booking is unavailable</h4></div>
+     <div id="eb" class="col-xs-12 hide"> <h4>Click on the Button to Change status</h4></div>
       <div id="st" class="col-xs-2 dropdown">
         <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             <li><a id="benable" >Enable</a></li>
+
+           
+        </ul>
+    </div>
+    <div id="stb" class="col-xs-2 dropdown">
+        <a id="bstb" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+            Status<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a id="benable" >Edit</a></li>
             <li><a id="bmyBtn">Disable</a></li>
-            <li><a id="bview">View</a></li>
+            
            
         </ul>
     </div>
@@ -296,7 +461,7 @@ if(session.getAttribute("id")== null){
      
      <div id="b-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
-      
+     <div id="exb" class="col-xs-12 hide"><h3>Expiry:${bto}</h3></div> 
   
  
   
@@ -312,7 +477,7 @@ if(session.getAttribute("id")== null){
 							   <div class="form-group">
 							      <label>to:</label> <input   name="to" type="date" class="form-control" id="bto">
 							   </div>
-							      <input type="submit" name="submit"  onClick="return validate2();" class="btn btn-primary"  value="confirmDate">
+							      <input type="submit" name="submit"   class="btn btn-primary" onClick="return checkFormb();" value="confirmDate">
 					  </form>
 		    </div>
 
@@ -371,16 +536,19 @@ if(session.getAttribute("id")== null){
   
    <div id="groups" class="DivStyle">
     <h2>Groups</h2>
-  
-  
-        <h3 id="offg">Grouping is unavailable </h3>
-        <h3 id="ong">Grouping is available</h3>
+
   
      <div  class="DivStyle2">
      
-     <h3>Status: ${gstatus}</h3>
-
-     <h4>Click on the Button to Change status</h4>
+     <div id="g" class="col-xs-12"> <h3>Status: ${gstatus}</h3></div>
+ 
+      <div id="off1g" class="col-xs-12 hide"> <h4>Grouping is unavailable until booking is closed</h4></div>
+     <div id="ong" class="col-xs-12 hide"> <h4>Grouping is available</h4></div>
+     <div id="offg" class="col-xs-12 hide"> <h4>Grouping is unavailable</h4></div>
+     <div id="eg" class="col-xs-12 hide"> <h4>Click on the Button to Change status</h4></div>
+ 
+ 
+    
       <div id="st2" class="col-xs-2 dropdown">
         <a id="bsg" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
             Status<span class="caret"></span>
@@ -408,8 +576,43 @@ if(session.getAttribute("id")== null){
      
      <div id="St-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
-      
-     <div id="exg" class="col-xs-12"><h3>Expiry:${gto}</h3></div>
+     <div class="col-xs-12">
+            <div id="exg" class="col-xs-12 hide"><h3>Expiry:${gto}</h3></div>
+     <br>
+    
+         <% //if((session.getAttribute("groups") != null)){
+    	 
+    
+	   
+	 %>
+<form name="ViewGroups"  action="ViewGroups" method="Post">
+	<div class="form-group">
+	<label for="viewgroups"><h4>View Groups</h4></label>
+    <select name="select" class="form-control">
+    
+    <option name="Normal" value="Normal">Normal</option>
+    <option name="Health Science" value="Health Science">Health Science</option>
+    <option name="Engineering" value="Engineering">Engineering</option>
+  
+  </select>
+	</div>
+
+  
+
+
+<input id="button"  class="btn btn-primary form-control" type="submit" name="submit"  value="view">
+		
+</form>
+
+     
+     </div> 
+
+	 
+	 
+	 <%//} %>
+     
+
+     
   
     <!-- The Modal to set dates for groups -->
 <div id="gModal" class="modal">
@@ -437,16 +640,17 @@ if(session.getAttribute("id")== null){
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close1">&times;</span>
     <form name="setDate" action="setgroup" method="Post">
      
-	   <p>Do you want to disable group?</p>  
+	   <p>Do you want to disable grouping</p>  
 	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
 	   
 	   </form>
   </div>
 
 </div>
+
         
        
      </div>
@@ -467,47 +671,52 @@ if(session.getAttribute("id")== null){
      </div>
    
    </div >
+   <div id="blocks" class="DivStyle">
+   <h2>Blocks</h2>
+      <div  class="DivStyle2">
    
-       <div id="bRooms" class="DivStyle">
-   <h2>Booked Rooms</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
+<form name="Viewblocks"  action="BlockView" method="Get">
+
+
+  
+
+
+<input id="button"  class="btn btn-primary" type="submit" name="submit"  value="view blocks">
+		
+</form>
    </div >
+   </div>
+
        <div id="vRooms" class="DivStyle">
-   <h2>Vacant Rooms</h2>
-           <form class="form-inline" action="" role="search">
+       <h2>Vacant Rooms</h2>
+       <div class="DivStyle2">
+                  <form class="form-inline" action="" role="search">
              <div class="form-group">
              <input type="text" class="form-control" placeholder="registration number" />
              </div>
              <button type="button" class="btn btn-primary">Submit</button>
              
            </form>
+       </div>
+   
+
    </div >
-       <div id="book" class="DivStyle">
+   <div id="book" class="DivStyle">
    <h2>Book</h2>
-           <form class="form-inline" action="" role="search">
+       <div  class="DivStyle2">
+   
+           <form name="bookstu"class="form-inline" action="AdminBook" method="Post">
              <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
+             <input type="text" name="regno" class="form-control" placeholder="registration number" />
              </div>
-             <button type="button" class="btn btn-primary">Submit</button>
+             
+             <input type="submit" name="submit" class="btn btn-primary" onClick="return validatereg();" value="bookstudent">
              
            </form>
    </div >
-       <div id="uBook" class="DivStyle">
-   <h2>Unbook</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
-             
-           </form>
-   </div >
+   </div>
+
+   
    </div >
    
  
@@ -525,64 +734,95 @@ if(session.getAttribute("id")== null){
   
     <script type="text/javascript">
     $(document).ready(function(){
+    	
+    	setTimeout(function(){
+    		$('#failure1').hide('fade')
+    	},4500);
+       	setTimeout(function(){
+    		$('#failure2').hide('fade')
+    	},4500);
+       	setTimeout(function(){
+    		$('#success1').hide('fade')
+    	},4500);
+       	
+       	
+    	
     	var status = '${gstatus}';
     	var bstatus = '${bstatus}';
-if(status == 'YES'){
-	$('#St-btn').addClass('active');	
-
-	$('#offg').addClass('hide');
+if((status == 'YES')&&(bstatus == 'NO')){
+    	
+    $('#b-btn').removeClass('active'); 
+    $('#b').addClass('hide');
+    $('#off1b').removeClass('hide');
+    $('#st').removeClass('hide');
+    $('#stb').addClass('hide');
+    $('#bst').addClass('disabled'); 
+    $('#St-btn').addClass('active');
+    $('#off1g').addClass('hide');
+    $('#g').removeClass('hide');
 	$('#ong').removeClass('hide');
+	$('#eg').removeClass('hide');
 	$('#exg').removeClass('hide');
-	$('#off').removeClass('hide');
-	$('#on').addClass('hide');
-	$('#on1').addClass('hide');
-	$('#bst').addClass('disabled');
+	
+	$('#bsg').removeClass('disabled');
+	
 	$('#st2').addClass('hide');
 	$('#st2s').removeClass('hide');
     	}
-else{
+if((status == 'NO') && (bstatus == 'NO')) {
 	$('#St-btn').removeClass('active');	
-
 	$('#offg').removeClass('hide');
-	$('#ong').addClass('hide');
-	$('#exg').addClass('hide');
-	$('#off').addClass('hide');
-    $('#on').removeClass('hide');
-    $('#on1').removeClass('hide');
+	$('#eg').removeClass('hide');
+	$('#st').removeClass('hide')
 	$('#bst').removeClass('disabled');
+	$('#stb').addClass('hide');
+	$('#st2s').addClass('hide');
+	$('#st2').removeClass('hide');
+	$('#g').removeClass('hide');
+	
+	$('#b-btn').removeClass('active');
+	$('#offb').removeClass('hide');
+	$('#eb').removeClass('hide');
+	$('#bsg').removeClass('disabled');
+	$('#bsgs').removeClass('disabled');
+	$('#b').removeClass('hide');
+	
+}
+if((bstatus == 'YES')&&(status == 'NO')){
+	
+    $('#St-btn').removeClass('active'); 
+    $('#g').addClass('hide');
+    $('#off1g').removeClass('hide');
+    $('#bsg').addClass('disabled');	
+    $('#bsgs').addClass('disabled');	
 	$('#st2s').addClass('hide');
 	$('#st2').removeClass('hide');
 	
+   $('#b-btn').addClass('active');
+   $('#stb').removeClass('hide');
+   $('#st').addClass('hide');
+   $('#onb').removeClass('hide');
+   $('#eb').removeClass('hide');
+   $('#exb').removeClass('hide');
+   $('#b').removeClass('hide');
+ 
 }
-if(bstatus == 'YES'){
- $('#b-btn').addClass('active');
- $('#bst').removeClass('disabled');
- $('#on').removeClass('hide');
- $('#on1').removeClass('hide');
- $('#off').addClass('hide');
- $('#bsg').addClass('disabled');
- $('#bsgs').addClass('disabled');
-}
-else{
-	$('#b-btn').removeClass('active');
-	
-	$('#on').addClass('hide');
-	$('#on1').addClass('hide');
-	$('#off').removeClass('hide');
-	$('#bsg').removeClass('disabled');
-	$('#bsgs').removeClass('disabled');
-}
+
+
+
 
 	
     	var alterClass= function(){
         var ww= document.body.clientWidth;
         if(ww<450){
         	$('#st').removeClass('col-xs-2').addClass('col-xs-5');
+        	$('#stb').removeClass('col-xs-2').addClass('col-xs-5');
         	$('#st2').removeClass('col-xs-2').addClass('col-xs-5');
         	$('#st2s').removeClass('col-xs-2').addClass('col-xs-5');
         }else {
         	
         	$('#st').addClass('col-xs-2').removeClass('col-xs-5');
+        	$('#stb').addClass('col-xs-2').removeClass('col-xs-5');
         	$('#st2').addClass('col-xs-2').removeClass('col-xs-5');
         	$('#st2s').addClass('col-xs-2').removeClass('col-xs-5');
         };
@@ -612,17 +852,20 @@ else{
     var modal2 = document.getElementById("bModal");
     var modal3 = document.getElementById("bsetdate");
     var modal4 = document.getElementById("gModal");
+
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
     var btn2 = document.getElementById("bmyBtn");
     var btn3 = document.getElementById("benable");
     var btn4 = document.getElementById("enable");
     var btn5 = document.getElementById("edit");
+
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close1")[0];
     var span2 = document.getElementsByClassName("close2")[0];
     var span3 = document.getElementsByClassName("close3")[0];
     var span4 = document.getElementsByClassName("close4")[0];
+
     // When the user clicks on the button, open the modal
     btn.onclick = function() {
       modal.style.display = "block";
@@ -640,6 +883,7 @@ else{
         modal4.style.display = "block";
       }
 
+
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
       modal.style.display = "none";
@@ -653,6 +897,7 @@ else{
     span4.onclick = function() {
         modal4.style.display = "none";
       }
+
 
    // When the user clicks anywhere outside of the modal, close it
    window.onclick = function(event) {
@@ -668,6 +913,7 @@ else{
       if (event.target == modal4) {
           modal4.style.display = "none";
         } 
+
     }
     
     </script>

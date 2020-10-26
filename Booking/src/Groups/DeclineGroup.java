@@ -88,6 +88,9 @@ public class DeclineGroup extends HttpServlet {
 		     ArrayList <Student> members = new ArrayList<Student>();
 		     members.add(leader);
 		     members.add(snd);
+		     
+		     int sev = gd.editmessage(g2.getLeader(), "COMPLETE");
+	         System.out.println("Edited groups table with value "+sev); 
 		     session.setAttribute("members", members);
 		     
 			}
@@ -116,6 +119,25 @@ public class DeclineGroup extends HttpServlet {
 				     members.add(leader);
 				     members.add(snd);
 				     members.add(trd);
+				     
+				     int count =0;
+				     for(int i=0;i<members.size();i++) {
+				    
+				    	 Student a = members.get(i);
+				    	 if( a.getStatus().equals("C") || a.getStatus().equals("L") ) {
+				    		 count++;
+				    	 }
+				    	 
+				     }
+				     if(count == 3) {
+					     int sev = gd.editmessage(g3.getLeader(), "COMPLETE");
+				         System.out.println("Edited groups table with value "+sev); 
+				     }
+				     
+				     
+				     
+				     
+				     
 				     session.setAttribute("members", members); 
 			    }
 
@@ -150,6 +172,21 @@ public class DeclineGroup extends HttpServlet {
 				     members.add(snd);
 				     members.add(trd);
 				     members.add(frt);
+				     
+				     int count =0;
+				     for(int i=0;i<members.size();i++) {
+				    
+				    	 Student a = members.get(i);
+				    	 if( a.getStatus().equals("C") || a.getStatus().equals("L") ) {
+				    		 count++;
+				    	 }
+				    	 
+				     }
+				     if(count == 4) {
+					     int sev = gd.editmessage(g4.getLeader(), "COMPLETE");
+				         System.out.println("Edited groups table with value "+sev); 
+				     }
+				     
 				     session.setAttribute("members", members); 
 			    }					
 

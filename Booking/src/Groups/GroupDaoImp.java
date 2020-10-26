@@ -4,6 +4,7 @@ package Groups;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import Login.ConnectionProvider;
 import Login.Student;
@@ -212,14 +213,15 @@ public class GroupDaoImp implements GroupDao {
 	@Override
 	public int insertgroups(groups g) {
     int status = 0;
-		
+    System.out.println(g.getCategory() +" from servlet CLASS DAOIMP");
 		try {
 		
 		conn1 = ConnectionProvider.getconn();
-		ps = conn1.prepareStatement("insert into groups (groupname, NoOfMembers, leader)values(?,?,?)");
-		ps.setString(1, g.getGroupname());	
-		ps.setString(2, g.getNoOfMembers());
-		ps.setString(3, g.getLeader());
+		ps = conn1.prepareStatement("insert into groups (groupname, category, NoOfMembers, leader)values(?,?,?,?)");
+		ps.setString(1, g.getGroupname());
+		ps.setString(2, g.getCategory());
+		ps.setString(3, g.getNoOfMembers());
+		ps.setString(4, g.getLeader());
 
 		
 		status = ps.executeUpdate();
@@ -1417,6 +1419,122 @@ public class GroupDaoImp implements GroupDao {
 			}
 			
 			return c;
+	}
+
+	@Override
+	public ArrayList<groups> getroup() {
+	     ArrayList<groups> gs = new ArrayList<groups>();
+			
+			
+			
+			try {
+				
+				
+				conn1 = ConnectionProvider.getconn();
+				ps = conn1.prepareStatement("select * from groups");
+				
+				
+				
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					groups g = new groups();
+					g.setGroupid(rs.getInt(1));
+					g.setGroupname(rs.getString(2));
+					g.setNoOfMembers(rs.getString(3));
+					g.setLeader(rs.getString(4));
+					g.setMessage(rs.getString(5));
+					g.setChecked(rs.getString(6));
+					
+					gs.add(g);
+						
+				}
+				
+				
+					}catch(Exception e){
+						System.out.println(e);
+						System.out.println("there is an exception in getting group from groups table");
+					}
+					
+					return gs;
+	}
+
+	@Override
+	public ArrayList<groups> getgroups() {
+	       ArrayList<groups> s = new ArrayList<groups>();
+			
+			
+			
+			try {
+				
+				
+				conn1 = ConnectionProvider.getconn();
+				ps = conn1.prepareStatement("select * from groups");
+				
+				
+				
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					groups g = new groups();
+					g.setGroupid(rs.getInt(1));
+					g.setGroupname(rs.getString(2));
+					g.setCategory(rs.getString(3));
+					g.setNoOfMembers(rs.getString(4));
+					g.setLeader(rs.getString(5));
+					g.setMessage(rs.getString(6));
+					g.setChecked(rs.getString(7));
+					
+					s.add(g);
+				}
+				
+				
+					}catch(Exception e){
+						System.out.println(e);
+						System.out.println("there is an exception in getting group from groups table");
+					}
+					
+					return s;
+	}
+
+
+
+	@Override
+	public ArrayList<groups> getspecificgroups(String category) {
+		ArrayList<groups> s = new ArrayList<groups>();
+		
+		
+		
+		try {
+			
+			
+			conn1 = ConnectionProvider.getconn();
+			ps = conn1.prepareStatement("select * from groups where category=?");
+			ps.setString(1, category);
+			
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				groups g = new groups();
+				g.setGroupid(rs.getInt(1));
+				g.setGroupname(rs.getString(2));
+				g.setCategory(rs.getString(3));
+				g.setNoOfMembers(rs.getString(4));
+				g.setLeader(rs.getString(5));
+				g.setMessage(rs.getString(6));
+				g.setChecked(rs.getString(7));
+				
+				s.add(g);
+			}
+			
+			
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in getting specific group from groups table");
+				}
+				
+				return s;
 	}
 
 

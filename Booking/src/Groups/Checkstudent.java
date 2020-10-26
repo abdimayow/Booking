@@ -75,7 +75,7 @@ public class Checkstudent extends HttpServlet {
 		    	  for(int i=0;i<reg3.length;i++)	{
 		    		  System.out.println(reg3[i]);
 		    		  Student stu = gd.getRegno(reg3[i]);
-		    		  
+		    		 
 		    		  if(stu.getName() == null) {
 		    			  int one = gd.removegroup((String)session.getAttribute("regno"));
 		    			request.setAttribute("failuregrps", "Regno "+reg3[i]+" does not exist");
@@ -112,8 +112,10 @@ public class Checkstudent extends HttpServlet {
 		  			RequestDispatcher rd = request.getRequestDispatcher("engineering");
 		  			rd.forward(request, response);  
 		    	  }else if(faculty.equals("HEALTH SCIENCE")) {
+		    		  System.out.println("It has proceeded to hsceince servlet");
 		  			RequestDispatcher rd = request.getRequestDispatcher("hscience");
 		  			rd.forward(request, response);  
+		  			
 		    	  }
 				
 

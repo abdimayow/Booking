@@ -12,6 +12,10 @@ import javax.servlet.http.HttpSession;
 
 
 
+import Login.Student;
+
+
+
 /**
  * Servlet implementation class Creategroup
  */
@@ -33,18 +37,38 @@ public class Creategroup extends HttpServlet {
 			   String gname = request.getParameter("groupname");
 			   String no = request.getParameter("NoOfMembers");
 			   String leader = (String)session.getAttribute("regno");
+     
+			   Student stu = gd.getRegno(leader);
+			  
+			   String category ="";
+			   
+			   switch (stu.getFaculty()) {
+			case "ENGINEERING":
+				category = "engineering";
+				break;
+			case "HEALTH SCIENCE":
+				category = "health science";
+				break;	
 
+			default:
+				category = "normal";
+				break;
+			}
+			 
+			   
 			   groups g = new groups();			   
 			   g.setGroupname(gname);
+			   g.setCategory(category);
                g.setNoOfMembers(no);
                g.setLeader(leader);
-
+               System.out.println(g.getCategory() +" from servlet CREATEGROUP");
             	 if(no.equals("2")) {
             		 String regno1 = (String)session.getAttribute("regno");
             		 String check = gd.getLeader( regno1); 
             		 String grpname = gd.checkgrpname(gname);
                      if((check == null) & (grpname == null)) {
 		                     int one = gd.insertgroups(g);
+		                    
 		                     System.out.println(one);
 		                     request.setAttribute("leader", leader);
 		             		 RequestDispatcher dis = request.getRequestDispatcher("2members.jsp");

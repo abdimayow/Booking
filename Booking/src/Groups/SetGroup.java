@@ -33,6 +33,9 @@ public class SetGroup extends HttpServlet {
 	   String status = "YES";
 	   String now = gd.checkGroupstates();
 	   String then = rm.checkBookStatus();
+	   
+	
+	   
 	  Group g = new Group();
 	  if(submitype.equals("confirmDate")) {
 
@@ -78,6 +81,7 @@ public class SetGroup extends HttpServlet {
 			
 			gd.closeGroup();
 			session.setAttribute("gstatus","NO");
+			session.removeAttribute("groups");
 		}
 		else {
 			session.setAttribute("disabled","Group is already disabled");

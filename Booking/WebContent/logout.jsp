@@ -8,16 +8,16 @@
 </head>
 <body>
 <%
-String user = (String)session.getAttribute("user");
-
-if(user.equals("isAdmin")) {
-    session.invalidate();
+if(session.getAttribute("id") != null){
+	session.invalidate();
 	response.sendRedirect("admin.jsp");
 }
-if(user.equals("isStudent")) {
+else{
 	session.invalidate();
 	response.sendRedirect("student.jsp");
 }
+
+
 %>
 </body>
 </html>

@@ -94,16 +94,24 @@ if(session.getAttribute("success") != null){
                     </div>
                     </div>                                                                             
                 </form>
+                <form class="form-horizontal"  action="insertrooms" method="Post">
+
+                     <div class="form-group">
+                       
+                        <div class="col-xs-10 col-xs-offset-2">
+                      <input type="submit" name="submit" class="btn btn-primary" value="insert beds in rooms">
+                    </div>
+                    </div>                                                                             
+                </form>
                                 <form class="form-horizontal"  action="insertrooms" method="Post">
 
                      <div class="form-group">
                        
                         <div class="col-xs-10 col-xs-offset-2">
-                      <input type="submit" name="submit" class="btn btn-primary" value="rooms">
+                      <input type="submit" name="submit" class="btn btn-primary" value="deletebeds">
                     </div>
                     </div>                                                                             
                 </form>
-                
 
                 </div>
   </div>

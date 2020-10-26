@@ -127,14 +127,14 @@ public class InsertRooms extends HttpServlet {
 			
 			
 			
-		}else if(submitype.equals("rooms")){
+		}else if(submitype.equals("insert beds in rooms")){
 			   ArrayList<Room> h = in.getRooms();
 			 
-			for(int i =7;i<h.size();i++) {
+			for(int i=0;i<h.size();i++) {
 				Room r = h.get(i);
 				String type = r.getType();
 				int rid = r.getRoomid();
-				
+
 				if(type.equals("D")) {
 					for(int j=0;j<2;j++) {
 						Bed b = new Bed();
@@ -200,7 +200,12 @@ public class InsertRooms extends HttpServlet {
 			response.sendRedirect("View.jsp");
 	
 		}
-		
+		else if(submitype.equals("deletebeds")) {
+			in.deleteBed();
+			
+			request.setAttribute("success", "All beds have been deleted");
+			response.sendRedirect("View.jsp");
+		}
 		
 		
 	}

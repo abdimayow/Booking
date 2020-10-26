@@ -167,7 +167,7 @@ ArrayList<Student> b = new ArrayList<Student>();
 String f = "";
 String s = "";
 String groupname = "";
-
+String regno = (String)session.getAttribute("regno");
 
 
 
@@ -211,12 +211,36 @@ String groupname = "";
    <h2>History</h2>
 
   
+   <% if(session.getAttribute("incomplete") != null){
+	 s = (String)session.getAttribute("incomplete");
+	 session.removeAttribute("incomplete");
+	 %>
+	 
+ <div id = "incomplete" class="alert alert-warning alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+ 
+ 
   <% if(session.getAttribute("successgrps") != null){
 	 s = (String)session.getAttribute("successgrps");
 	 session.removeAttribute("successgrps");
 	 %>
 	 
  <div id = "success" class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+  <% if(session.getAttribute("successbooking") != null){
+	 s = (String)session.getAttribute("successbooking");
+	 session.removeAttribute("successbooking");
+	 %>
+	 
+ <div id = "successbooking" class="alert alert-success alert-dismissible">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <%= s %> 
 </div>  
@@ -229,6 +253,17 @@ String groupname = "";
 	 %>
 	 
  <div id = "failure" class="alert alert-warning alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
+<% if(session.getAttribute("failurebooking") != null){
+	 s = (String)session.getAttribute("failurebooking");
+	 session.removeAttribute("failurebooking");
+	 %>
+	 
+ <div id = "failurebooking" class="alert alert-warning alert-dismissible">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <%= s %> 
 </div>  
@@ -260,12 +295,12 @@ String groupname = "";
       <div id="groups" class="DivStyle">
     <h2>Groups</h2>
     
-  
-        <h3 id="offg">Grouping is unavailable </h3>
-        <h3 id="ong">Grouping is available</h3>
-     <div  class="DivStyle2">
-     <h3>Status: ${gstatus}</h3>
 
+
+     <div  class="DivStyle2">
+    
+     <div id="offg" class="col-xs-12"> <h4>Grouping is unavailable </h4></div>
+     <div id="ong" class="col-xs-12 "> <h4>Grouping is available</h4></div>
     
      
       <div id="st2" class="col-xs-2 dropdown ">
@@ -521,29 +556,33 @@ String groupname = "";
     <h2>Booking</h2>
     
      <div  class="DivStyle2">
-     <h3>Status</h3>
+   
      <div id="offb" class="col-xs-12"> <h4>Booking is unavailable </h4></div>
      <div id="onb" class="col-xs-12 "> <h4>Booking is available</h4></div>
      
       <div id="st" class="col-xs-2 dropdown">
         <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
-            Status<span class="caret"></span>
+            Status
         </a>
-        <ul class="dropdown-menu">
-            <li><a href="#" >Book</a></li>
-            <li><a href="#">View</a></li>
-           
-        </ul>
+  
     </div>
-    
+
     
    
      
      <div id="b-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
-      
-  
- 
+      <div id="exb" class="col-xs-12"><h3>Expiry:${bto}</h3></div> 
+      <div id="exbb" class="col-xs-12">
+           <form name="bookstu" action="StudentBook" method="Post">
+             <div class="form-group">
+             <input type="hidden" name="regno" class="form-control" value="<%= regno %>" />
+             </div>
+             
+             <input type="submit" name="submit" class="btn btn-primary col-xs-2"  value="BOOK">
+             
+           </form>
+    </div>
   
 
   
@@ -589,7 +628,7 @@ String groupname = "";
    
   
     <script type="text/javascript">
-    $(document).ready(function(){
+   
   
    
     		
@@ -597,7 +636,16 @@ String groupname = "";
         		$('#success').hide('fade')
         	},4500);
         	setTimeout(function(){
+    		$('#successbooking').hide('fade')
+	        },4500);
+        	setTimeout(function(){
         		$('#failure').hide('fade')
+        	},4500);
+        	setTimeout(function(){
+        		$('#failurebooking').hide('fade')
+        	},4500);
+        	setTimeout(function(){
+        		$('#incomplete').hide('fade')
         	},4500);
     
     	
@@ -640,12 +688,16 @@ if(bstatus == 'YES'){
 	$('#offb').addClass('hide');
 	$('#onb').removeClass('hide');
 	$('#bst').removeClass('disabled');
+	$('#exb').removeClass('hide');
+	$('#exbb').removeClass('hide');
 }
 else{
 	$('#b-btn').removeClass('active');	
 	$('#onb').addClass('hide');
 	$('#offb').removeClass('hide');
 	$('#bst').addClass('disabled');
+	$('#exb').addClass('hide');
+	$('#exbb').addClass('hide');
 }
 if(gstatus == "S"){
 	$('#st2s').addClass('hide');
@@ -670,14 +722,14 @@ if(gstatus == "S"){
         	alterClass();
         });
     	
-    	alterClass();
     	
     	
     	
     	
     	
     	
-    });
+    	
+    	
    
     function validate(){
     	var from = document.setDate.from.value;
@@ -760,6 +812,7 @@ if(gstatus == "S"){
       if (event.target == exitgroup) {
     	  exitgroup.style.display = "none";
         } 
+      
     }
    
 
