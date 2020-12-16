@@ -22,6 +22,7 @@ public interface GroupDao {
 	
 	public ArrayList<groups> getgroups();
 	public ArrayList<groups> getspecificgroups(String category);
+	public ArrayList<groups> getroups(String from, String to);
 
 	public groups getgroup(String leader);
 	public groups group(int gid);

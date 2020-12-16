@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import Blocks.InsertDaoImp;
 import Blocks.insertDao;
 import Blocks.History;
+import Groups.Group;
 import Groups.GroupDao;
 import Groups.GroupDaoImp;
 import Groups.group2;
@@ -68,7 +69,8 @@ public class Checkstatus extends HttpServlet {
 		//Compare current date with grouping deadline
 		if(todate.compareTo(current) > 0) {
 			gstatus = "YES";
-			
+			Group ps = gd.getGroup("YES");
+			session.setAttribute("group", ps);
 			ArrayList<groups> gs= gd.getroup();
 			if(gs != null) {
 				session.setAttribute("groups", gs);	

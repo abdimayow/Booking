@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Groups.Group" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -417,6 +418,17 @@ String s= "";
 </div>  
 
 <%} %>
+     <% if(session.getAttribute("searchfailure") != null){
+	 s = (String)session.getAttribute("searchfailure");
+	 session.removeAttribute("searchfailure");
+	 %>
+	 
+ <div id = "failure3" class="alert alert-danger alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <%= s %> 
+</div>  
+
+<%} %>
      <% if(session.getAttribute("successbooking") != null){
 	 s = (String)session.getAttribute("successbooking");
 	 session.removeAttribute("successbooking");
@@ -592,7 +604,8 @@ String s= "";
      <div id="St-btn" class="col-xs-2  toggle-btn"><div class="inner-circle"></div></div>
    
      <div class="col-xs-12">
-            <div id="exg" class="col-xs-12 hide"><h3>Expiry:${gto}</h3></div>
+     <% Group ps = (Group)session.getAttribute("group"); String fto = ps.getFrom(); %>
+            <div id="exg" class="col-xs-12 hide"><h3>FROM:<%=fto %>   TO:${gto}</h3></div>
      <br>
     
          <% //if((session.getAttribute("groups") != null)){
@@ -621,13 +634,16 @@ String s= "";
 
 
  <div id = "SearchGroups" class="col-xs-12 hide">
-      <form name="searchgroup" action="ViewGroups" method="Post">
-			 <div class="form-group">
-	<h4>Search by date:</h4> <input name="from" type="date" class="form-control" id="from" required>
-			</div>
+     
+	<h4>Search by date:</h4> 
 
-			<input type="submit" name="submit" class="btn btn-success"  value="search">
-     </form> 
+     				   <form name="searchgroup" action="ViewGroups" method="Post">
+                              <div class="form-group">
+							     <label>from:</label> <input name="from" type="date" class="form-control" id="bfrom">
+							   </div>
+
+							      <input type="submit" name="submit"   class="btn btn-success"  value="search">
+					  </form> 
  </div>
      
      </div> 
@@ -777,6 +793,9 @@ String s= "";
     	},4500);
        	setTimeout(function(){
     		$('#failure2').hide('fade')
+    	},4500);
+       	setTimeout(function(){
+    		$('#failure3').hide('fade')
     	},4500);
        	setTimeout(function(){
     		$('#success1').hide('fade')

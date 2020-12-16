@@ -4,6 +4,7 @@ import RoomBooking.RoomBookingDao;
 import RoomBooking.RoomBookingDaoImp;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class ViewGroups extends HttpServlet {
 		   
 		   
 		  
-		   String leader = request.getParameter("leader");
+		   
 		   String category = request.getParameter("select");
 		   
 		   if(category !=null) {
@@ -61,8 +62,13 @@ public class ViewGroups extends HttpServlet {
 				   response.sendRedirect("home.jsp");
 			   }
 		   }
+		   
+		  break;
+		   case "View Members":
 
+			   String leader = request.getParameter("leader");
 		   if(leader != null) {
+			  
 			   Student stu = gd.getRegno(leader);
 			
 				//If the user is a group leader	
@@ -130,6 +136,59 @@ public class ViewGroups extends HttpServlet {
 	
 	case "search":
 		String from = request.getParameter("from");
+		LocalDate  sfrom = LocalDate.parse(from);
+
+		
+		Group ps = gd.getGroup("YES");
+		String fdate = ps.getFrom();
+		LocalDate  fromdate = LocalDate.parse(fdate);
+		
+		LocalDate current = LocalDate.now();
+		
+		String test="ba";
+		
+
+		if(fromdate.compareTo(sfrom) > 0) {
+			test = test+"ba";
+		}
+		if(current.compareTo(fromdate) > 0) {
+			test = test+"ba";
+		}
+
+		switch(test) {
+		case "ba":
+			from = from+" 00:00:00:00";
+			
+			String to = current+" 23:59:59:59";
+			System.out.println(from +" "+to);
+			
+			ArrayList<groups> gs = gd.getroups(from,  to);
+			
+			   if(gs !=null) {
+				   session.setAttribute("viewgroups", gs);
+				   
+				   response.sendRedirect("ListFile.jsp");
+			   }
+			   else {
+				   session.setAttribute("failuregrps", "student groups are not available at the moment");
+				   response.sendRedirect("home.jsp");
+			   }
+		//groups g = 	(groups)session.getAttribute("groups");
+			break;
+		default:
+			System.out.println("failure");
+			session.setAttribute("searchfailure", "Date should be from the beginning of  grouping date to todays date ");
+			response.sendRedirect("home.jsp");
+			break;
+		}
+		
+		
+		
+		
+		
+		
+
+		
 	break;
 	default:
 		response.sendRedirect("home.jsp");

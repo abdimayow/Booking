@@ -29,7 +29,7 @@
 
 body{
 	background: #ebecf1;
-	color: #b3b9b9;
+	color: #000000;
 }
 
 .view_item img{
@@ -38,7 +38,10 @@ body{
 
 .wrapper{
 	width: 800px;
-	margin: 20px auto;
+	margin-top: 40px ;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .links{
@@ -192,7 +195,20 @@ body{
   padding: 5px 10px;
   font-size: 1.3rem;
 }
-
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
 
  
     </style>
@@ -243,16 +259,7 @@ ArrayList <Student> b = new ArrayList<Student>();
 
 <div class="container main">
 
-    <div id="search" class="DivStyle">
-   <h2>Search</h2>
-           <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="group name" />
-             </div>
-             <button type="button" class="btn btn-primary">Search</button>
-             
-           </form>
-   </div >
+
    
 
 
@@ -357,7 +364,7 @@ ArrayList <Student> b = new ArrayList<Student>();
 					</p>
 					<form action="ViewGroups" method="Post">
 					<input type="hidden" name="leader" value="<%= g.getLeader() %>" />
-					<button class="btn" type="submit">View Members</button>
+					<input type="submit" name="submit"   class="btn btn-success"  value="View Members">
 					</form>
 					
 				</div>

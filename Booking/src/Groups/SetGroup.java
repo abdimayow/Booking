@@ -62,6 +62,8 @@ public class SetGroup extends HttpServlet {
 		  
 		if( now.equals("NO")) {
 			int one = gd.insertGroup(g);
+			Group ps = gd.getGroup("YES");
+			session.setAttribute("group", ps);
 			session.setAttribute("gstatus","YES");
 			session.setAttribute("gto",g.getTo());
 			System.out.println(one);
@@ -71,6 +73,8 @@ public class SetGroup extends HttpServlet {
 		else {
 			gd.closeGroup();
 			int one = gd.insertGroup(g);
+			Group ps = gd.getGroup("YES");
+			session.setAttribute("group", ps);
 			System.out.println(one);
 			session.setAttribute("gstatus","YES");
 			session.setAttribute("gto",g.getTo());

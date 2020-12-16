@@ -1943,6 +1943,45 @@ public class GroupDaoImp implements GroupDao {
 		return flag;
 	}
 
+	@Override
+	public ArrayList<groups> getroups(String from, String to) {
+	       ArrayList<groups> s = new ArrayList<groups>();
+			
+			
+			
+			try {
+				
+				
+				conn1 = ConnectionProvider.getconn();
+				ps = conn1.prepareStatement("SELECT * FROM groups WHERE Editdate BETWEEN ? AND ?");
+				ps.setString(1, from);
+				ps.setString(2, to);
+				
+				
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					groups g = new groups();
+					g.setGroupid(rs.getInt(1));
+					g.setGroupname(rs.getString(2));
+					g.setCategory(rs.getString(3));
+					g.setNoOfMembers(rs.getString(4));
+					g.setLeader(rs.getString(5));
+					g.setMessage(rs.getString(6));
+					g.setChecked(rs.getString(7));
+					
+					s.add(g);
+				}
+				
+				
+					}catch(Exception e){
+						System.out.println(e);
+						System.out.println("there is an exception in getting groups from groups table");
+					}
+					
+					return s;
+	}
+
 
 
 }
