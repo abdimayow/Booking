@@ -70,6 +70,7 @@ public interface GroupDao {
 	public Group getGroup(String status);
 	
 	public boolean closeGroup();
+	public boolean closeallgroups();
 	
 	public String getToDate();
 

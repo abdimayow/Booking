@@ -21,6 +21,7 @@ public interface insertDao {
 	public int checkbookedbed(String regno);
 	public String checkbookedstudent(int bedid);
 	public int unbook(int bedid,String regno);
+	public int unbookall();
 	
 	public Hostel getHostel(int hostelid);
 	public String getHostelname(int hostelid);
@@ -35,6 +36,7 @@ public interface insertDao {
     public ArrayList<Room> getVacantRooms(int hostelid,Student stu);
     public ArrayList<Bed> getRoomBeds(int roomid);
     public ArrayList<Bed> getVacantBeds(int roomid,Student stu);
+    public ArrayList<History> getHistory(String reg);
 	public Room  getRooms(int roomno);
 	public Room  getRooms2(String hostelnumber);
 	public Hostel getHostels(String Single);

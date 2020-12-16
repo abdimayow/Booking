@@ -82,7 +82,7 @@ public class Status extends HttpServlet {
 					rd.forward(request, response);
 				
 	    		  }
-	    		  if(status.equals("D") || status.equals("U")){
+	    		  if(status.equals("U")){
 	    			int one = gd.removegroup((String)session.getAttribute("regno"));
                    
                    
@@ -98,7 +98,7 @@ public class Status extends HttpServlet {
 					rd.forward(request, response);
 				
 	    		  }
-	    		  if(status.equals("S")) {
+	    		  if(status.equals("D") || status.equals("S")) {
 		    		  if(i==0) {
 		    			  group2.setGroupid(group.getGroupid());
 		    			  group2.setLeader(stu.getRegno());

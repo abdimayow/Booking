@@ -2196,6 +2196,245 @@ try {
 		return num;
 	}
 
+	@Override
+	public ArrayList<History> getHistory(String reg) {
+		ArrayList<Booked> booked = new ArrayList<Booked>();
+		ArrayList<Bed> beds = new ArrayList<Bed>();
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		ArrayList<Hostel> hostels = new ArrayList<Hostel>();
+		ArrayList<History> History = new ArrayList<History>();
+		try {
+			
+			conn1 = ConnectionProvider.getconn();
+			ps = conn1.prepareStatement("select * from booked where regno=?");
+			ps.setString(1, reg);
+		
+
+			
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Booked e = new Booked();
+			 e.setRegno(rs.getString(1)); 
+			 e.setBedid(rs.getInt(2));
+			 e.setYear(rs.getString(3));
+			 e.setStatus(rs.getString(4));
+	           
+		
+				
+			 booked.add(e);
+			}
+			
+			conn1.close();
+			ps.close();
+			
+	        
+					}catch(Exception e){
+						System.out.println(e);
+						System.out.println("there is an exception in getting history from booked table");
+					}
+		if(booked!=null) {
+			
+			for(int i=0;i<booked.size();i++) {
+				
+				try {
+					Booked e = booked.get(i);
+					
+					conn1 = ConnectionProvider.getconn();
+					ps = conn1.prepareStatement("select * from bed where bedid=?");
+					ps.setInt(1, e.getBedid());
+				
+
+					
+
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()) {
+						Bed bed = new Bed();
+					 bed.setBedid(rs.getInt(1)); 
+					 bed.setRoomid(rs.getInt(2));
+					 bed.setBedno(rs.getInt(3));
+					 bed.setStatus(rs.getString(4));
+			           
+				
+						
+					 beds.add(bed);
+					}
+					
+					conn1.close();
+					ps.close();
+					
+			        
+							}catch(Exception e){
+								System.out.println(e);
+								System.out.println("there is an exception in getting bed from bed table");
+							}
+			}
+			
+		}
+		
+		if(beds!=null) {
+			
+			for(int i=0;i<beds.size();i++) {
+				
+				try {
+					Bed bed = beds.get(i);
+					
+					conn1 = ConnectionProvider.getconn();
+					ps = conn1.prepareStatement("select * from rooms where roomid=?");
+					ps.setInt(1, bed.getRoomid());
+				
+
+					
+
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()) {
+						Room room = new Room();
+					 room.setRoomid(rs.getInt(1)); 
+					 room.setHostelid(rs.getInt(2));
+					 room.setRoomno(rs.getInt(3));
+					 room.setType(rs.getString(4));
+			           
+				
+						
+					 rooms.add(room);
+					}
+					
+					conn1.close();
+					ps.close();
+					
+			        
+							}catch(Exception e){
+								System.out.println(e);
+								System.out.println("there is an exception in getting room from rooms table");
+							}
+			}
+			
+		}
+		
+		if(rooms!=null) {
+			
+			for(int i=0;i<rooms.size();i++) {
+				
+				try {
+					Room room = rooms.get(i);
+					
+					conn1 = ConnectionProvider.getconn();
+					ps = conn1.prepareStatement("select * from hostels where hostelid=?");
+					ps.setInt(1, room.getHostelid());
+				
+
+					
+
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()) {
+						Hostel hostel = new Hostel();
+						hostel.setHostelid(rs.getInt(1));
+						hostel.setHostelname(rs.getString(2));
+						hostel.setNoOfRooms(rs.getString(3));
+						hostel.setNoOfSingleRooms(rs.getString(4));
+						hostel.setNoOfDoubleRooms(rs.getString(5));
+						hostel.setNoOfTripleRooms(rs.getString(6));
+						hostel.setNoOfQuadRooms(rs.getString(7));
+						hostel.setNoOfSextupleRooms(rs.getString(8));
+				
+						
+						hostels.add(hostel);
+					}
+					
+					conn1.close();
+					ps.close();
+					
+			        
+							}catch(Exception e){
+								System.out.println(e);
+								System.out.println("there is an exception in getting hostel from hostels table");
+							}
+			}
+			int count = booked.size();
+			
+			if(count !=0) {
+				for(int i=0;i<count;i++) {
+					History h = new History();
+					Booked b= booked.get(i);
+					Hostel hos= hostels.get(i);
+					Room rom= rooms.get(i);
+					
+					h.setHostelname(hos.getHostelname());
+					h.setRoomno(rom.getRoomno());
+					h.setYear(b.getYear());
+					h.setStatus(b.getStatus());
+					History.add(h);
+					
+				}
+				
+			}
+			
+			
+		}
+
+		
+		
+		
+		return History;
+	}
+
+	@Override
+	public int unbookall() {
+		
+		int num = 0;
+		Boolean flag =false;
+		int bed = 0;
+
+   
+
+   		 try {
+   				
+   				conn1 = ConnectionProvider.getconn();
+   				ps = conn1.prepareStatement("update booked set status=? where status=?");
+   				
+   				ps.setString(1, "CLOSED");
+   				ps.setString(2, "OPEN");
+   				
+   				
+   				
+   		
+   				bed = ps.executeUpdate();
+   				
+   				conn1.close();
+   				ps.close();
+   					
+   				}catch(Exception e){
+   					System.out.println(e);
+   					System.out.println("there is an exception in updating into booked table");
+   				}
+   			try{  
+   	        	conn1 = ConnectionProvider.getconn();  
+   	            PreparedStatement ps=conn1.prepareStatement("update bed set status=? where status=?");  
+   	            
+   	            ps.setString(1,"VACANT"); 
+   	            ps.setString(2,"BOOKED");
+   	           
+   	            
+   	              
+   	            ps.executeUpdate(); 
+   	          
+
+   	            flag = true;
+   	              
+   	            
+   	        }catch(Exception e){
+   	        	System.out.println(e);
+   	            System.out.println("there is an exception in Vacating bed");
+   	        	
+   	        	}
+		
+		
+		if(flag == true && bed ==1) {
+			num = 1;
+		}
+		return num;
+	}
+
 
 	
  

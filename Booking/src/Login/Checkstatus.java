@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import Blocks.InsertDaoImp;
+import Blocks.insertDao;
+import Blocks.History;
 import Groups.GroupDao;
 import Groups.GroupDaoImp;
 import Groups.group2;
@@ -19,6 +23,7 @@ import Groups.group4;
 import Groups.groups;
 import RoomBooking.RoomBookingDao;
 import RoomBooking.RoomBookingDaoImp;
+
 
 
 /**
@@ -32,6 +37,7 @@ public class Checkstatus extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     GroupDao gd = new GroupDaoImp();
+    
 
     RoomBookingDao rm = new RoomBookingDaoImp();
     HttpSession session = request.getSession();
@@ -72,8 +78,14 @@ public class Checkstatus extends HttpServlet {
 			
 			//If the user is a student
 			if(reg !=null) {
-				 
 				Student stu = gd.getRegno(reg);
+				
+			
+
+				    	
+				
+				 
+				
 				session.setAttribute("ustatus", stu.getStatus());
 				//If the user is a group leader	
 					if(stu.getStatus().equals("L")) {
@@ -308,8 +320,9 @@ public class Checkstatus extends HttpServlet {
 					//If the user is a group leader with a declined group	
 					if(stu.getStatus().equals("U")) {
 						groups gr = gd.getgroup(reg);
-				        System.out.println(gr.getMessage());
-						session.setAttribute("grpstatus",gr.getMessage());
+						String message =gr.getMessage(); 
+				        System.out.println("This is the message: "+ message);
+						session.setAttribute("grpstatus",message);
 						
 					}
 					//If the users group has been declined	
@@ -328,6 +341,7 @@ public class Checkstatus extends HttpServlet {
 		}
 		else {
 			gd.closeGroup();
+			gd.closeallgroups();
 			gstatus = "NO";	
 		}
 		

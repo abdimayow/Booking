@@ -153,6 +153,20 @@ body{
   text-decoration: none;
   cursor: pointer;
 }
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
 
 </style>
 

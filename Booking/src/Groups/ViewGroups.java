@@ -30,6 +30,12 @@ public class ViewGroups extends HttpServlet {
 		   RoomBookingDao rm = new RoomBookingDaoImp();
 			
 		   HttpSession session = request.getSession();
+		   String submit = request.getParameter("submit");
+		   
+		   switch(submit) {
+		   case "view":
+		   
+		   
 		  
 		   String leader = request.getParameter("leader");
 		   String category = request.getParameter("select");
@@ -120,9 +126,17 @@ public class ViewGroups extends HttpServlet {
 			   response.sendRedirect("ListFile.jsp");
 		   }
 		   
-		   
+	break;
+	
+	case "search":
+		String from = request.getParameter("from");
+	break;
+	default:
+		response.sendRedirect("home.jsp");
+	break;	
+	
 		  
-		
+		   }	
 	}
 
 }

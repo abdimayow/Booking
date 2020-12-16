@@ -18,8 +18,79 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+       <script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script> 
+    
+    <style>
+    .modal {
+  display: none; /* Hidden by default */
+  position: relative; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  
+}
+
+
+/* The Close Button */
+
+.closec,.closeh {
+  color: #bbb;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+
+
+.closec:hover,.closeh:hover
+.closec:focus,.closeh:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
+    
+    </style> 
 </head>
-<body>
+<body  onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <%
 if(session.getAttribute("regno")==null){
 	response.sendRedirect("student.jsp");
@@ -29,7 +100,7 @@ String leader = (String)session.getAttribute("regno");
 String f = "";
 
 %>
- <nav class="navbar navbar-default">
+ <nav class="navbar navbar-inverse">
        <div class="navbar-header">
        <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
        <span class="icon-bar"></span>
@@ -38,8 +109,14 @@ String f = "";
        </button>
        </div>
        <div class="navbar-collapse collapse">
-       <ul class="nav navbar-nav navbar-right">
-       <li ><a href="student.jsp">Student</a></li>
+       <ul class="nav navbar-nav navbar-left " >
+       <li><a id="back">Back</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-centre " >
+       <li><a id="home">Home</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right " >
+       <li ><a href="logout.jsp"  >Logout</a></li>
        </ul>
        </div>
       </nav>
@@ -55,7 +132,38 @@ String f = "";
   <%= f %> 
 </div>  
 
-<%} %>  
+<%} %> 
+
+    <!-- Backtrack Modal -->
+<div id="backtrack" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="closec">&times;</span>
+    <form name="backtrack" action="backtrackgroup" method="Get">
+     
+	   <p>Do you want to restart the grouping process?</p>  
+	   <input type="submit" name="submit" class="btn btn-success"  value="ok">
+	   
+	   </form>
+  </div>
+
+</div> 
+    <!-- Cancel Modal -->
+<div id="cancel" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="closeh">&times;</span>
+    <form name="backtrack" action="backtrackgroup" method="Get">
+     
+	   <p>Do you want to cancel the grouping process?</p>  
+	   <input type="submit" name="submit" class="btn btn-success"  value="confirm">
+	   
+	   </form>
+  </div>
+
+</div>  
      
       <div class="row">
       
@@ -105,7 +213,7 @@ String f = "";
                        
                      <div class="col-xs-10 col-xs-offset-2">
                        <input type="hidden" name="members" class="btn btn-primary" value="4members">
-                       <input type="submit" name="submit" class="btn btn-primary" value="confirm members">
+                       <input type="submit" name="submit" class="btn btn-success" value="confirm members">
                     </div>
                     </div>
                   
@@ -130,6 +238,54 @@ String f = "";
     		$('#failure2').hide('fade')
     	},3500);
      });
+     
+     // Get the modal
+     var restartgroup = document.getElementById("backtrack");
+     var cancelgroup = document.getElementById("cancel");
+     
+     
+     // Get the button that opens the modal
+     var back = document.getElementById("back");
+     var home = document.getElementById("home");
+     
+     
+     // Get the <span> element that closes the modal
+     var closec = document.getElementsByClassName("closec")[0];
+     var closeh = document.getElementsByClassName("closeh")[0];
+     
+     
+     // When the user clicks on the button, open the modal
+
+     back.onclick = function() {
+     	restartgroup.style.display = "block";
+       }
+     home.onclick = function() {
+     	cancelgroup.style.display = "block";
+       }
+     
+     
+     
+     // When the user clicks on <span> (x), close the modal
+
+     closec.onclick = function() {
+    	 restartgroup.style.display = "none";
+       }
+     closeh.onclick = function() {
+    	 cancelgroup.style.display = "none";
+       }
+     
+     
+     // When the user clicks anywhere outside of the modal, close it
+     window.onclick = function(event) {
+
+        if (event.target == restartgroup) {
+      	  restartgroup.style.display = "none";
+          } 
+        if (event.target == cancelgroup) {
+      	  cancelgroup.style.display = "none";
+          } 
+        
+      }
     </script>
 </body>
 </html>

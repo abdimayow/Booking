@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BookedRooms" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48f080ec-5139-4168-a7b1-e7f4929e5598">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql-Accomodation"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT  h.hostelname as hostelname, r.roomno as room_number ,count(b.bedno) as booked_beds
+FROM bed b,rooms r, hostels h 
+WHERE b.status="BOOKED" and b.roomid=r.roomid and r.hostelid=h.hostelid 
+group by r.roomid,h.hostelname]]>
+	</queryString>
+	<field name="hostelname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="hostelname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hostels"/>
+	</field>
+	<field name="room_number" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="room_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rooms"/>
+	</field>
+	<field name="booked_beds" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="booked_beds"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="-2" width="170" height="30" uuid="b1fd1edd-3ea2-45c3-a4b8-9c96c00e7c6f"/>
+				<textElement>
+					<font fontName="Algerian" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BOOKED ROOMS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="37" y="1" width="100" height="30" uuid="1a09c4b1-beba-4201-9c65-c4703a4f0f56"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[HOSTELNAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="30" uuid="dd008009-867d-4a66-9f1e-b148bfef9c4c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ROOM NUMBER]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="-10" width="550" height="1" uuid="713f8c40-d9c6-48dd-89e3-345dec230367"/>
+			</line>
+			<staticText>
+				<reportElement x="387" y="0" width="160" height="30" uuid="c3f7d284-c4a7-4c3f-ad6d-90f60159cb11"/>
+				<text><![CDATA[NUMBER OF OCCUPIED BEDS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="35" y="2" width="100" height="20" uuid="c0411fbb-2b26-4dbd-9260-b7eb554f539c"/>
+				<textFieldExpression><![CDATA[$F{hostelname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="100" height="20" uuid="d9e92a71-9e55-43da-ab00-931872975a2d"/>
+				<textFieldExpression><![CDATA[$F{room_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="0" width="100" height="20" uuid="0c79a7a9-c9b5-4bcc-908c-a7a122ec8745"/>
+				<textFieldExpression><![CDATA[$F{booked_beds}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="21" width="550" height="1" uuid="5e657f2f-b712-4acb-b15f-4e477eb07db4"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="291" y="6" width="100" height="30" uuid="f1e02fb4-6769-44da-b6ba-52ab54af1d83"/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="7" width="100" height="30" uuid="3baaaa0e-f360-4518-a9be-6edd431cd160"/>
+				<text><![CDATA[Time:]]></text>
+			</staticText>
+			<textField pattern="HH:mm">
+				<reportElement x="443" y="8" width="100" height="30" uuid="d6f5ebc6-91cf-4991-9517-116094e8b1ca"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="321" y="7" width="100" height="30" uuid="a74af0b6-105b-4039-bc6e-ddd3b2a0dff6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="287" y="43" width="270" height="1" uuid="fdf5523d-17ac-485c-989a-978166841f3f"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

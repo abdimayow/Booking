@@ -1,9 +1,7 @@
 package Login;
 
 import java.io.IOException;
-
-
-
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import Blocks.History;
+import Blocks.InsertDaoImp;
+import Blocks.insertDao;
 import Login.Student;
 
 import Login.LoginDao;
@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
         LoginDao cd = new LoginDaoImp();
-   
+        insertDao in = new InsertDaoImp();
         
 		
     	String regno = request.getParameter("regno");
@@ -62,6 +62,13 @@ public class Login extends HttpServlet {
 			
 			System.out.println(c.getRegno());
 			session.setAttribute("user","isStudent");
+			
+			
+			ArrayList<History> bl = in.getHistory(c.getRegno());
+			if(bl!=null) {
+				
+				session.setAttribute("history", bl);
+			}
 		
 		    response.sendRedirect("checkstatus");	
 		    

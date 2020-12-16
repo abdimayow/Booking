@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import Blocks.Bed;
 import Blocks.Blocks;
+import Blocks.History;
 import Blocks.Hostel;
 import Blocks.InsertDaoImp;
 import Blocks.Room;
@@ -300,6 +301,12 @@ public class StudentBook extends HttpServlet {
 					}
 					
 				}
+				ArrayList<History> bl = in.getHistory(student.getRegno());
+				if(bl!=null) {
+					
+					session.setAttribute("history", bl);
+				}
+				
 				session.setAttribute("successbooking", "Booking was successful!");
 				System.out.println("success");
 				response.sendRedirect("booking.jsp");
@@ -322,6 +329,11 @@ public class StudentBook extends HttpServlet {
 				response.sendRedirect("booking.jsp");
 				break;
 			default:
+				ArrayList<History> bl = in.getHistory(student2.getRegno());
+				if(bl!=null) {
+					
+					session.setAttribute("history", bl);
+				}
 				session.setAttribute("successbooking", "Booking was successful!");
 				System.out.println("success");
 				response.sendRedirect("booking.jsp");

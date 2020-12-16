@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Groups.GroupDao;
+import Groups.GroupDaoImp;
+
 
 @WebServlet("/setBookStatus")
 public class SetBookStatus extends HttpServlet {
@@ -19,7 +22,7 @@ public class SetBookStatus extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
      
 		RoomBookingDao rm = new RoomBookingDaoImp();
-		
+		GroupDao gd = new GroupDaoImp();
 		   HttpSession session = request.getSession();
 		  
 			
@@ -30,6 +33,7 @@ public class SetBookStatus extends HttpServlet {
 		   String now = rm.checkBookStatus();
 		  BookStatus g = new BookStatus();
 		  if(submitype.equals("confirmDate")) {
+			  gd.closeallgroups();
 			  
 			  LocalDate  today  = LocalDate.now();
 			  LocalDate  tomorrow  = LocalDate.now().plusYears(1);

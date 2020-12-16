@@ -50,10 +50,10 @@ public class DeclineGroup extends HttpServlet {
 				session.removeAttribute("grpdeclined");
 				
 				String reg = (String)session.getAttribute("regno");
-				
+				int sev = gd.removegroup(reg); 
 				int one = gd.deletestatus(reg);
 				
-				System.out.println(one);
+				System.out.println(one+" "+sev);
 			}
 
 			
@@ -365,7 +365,7 @@ public class DeclineGroup extends HttpServlet {
 
 							
 						}
-						
+						session.setAttribute("ustatus", "S");
 					}
 			    
 			

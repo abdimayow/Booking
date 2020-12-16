@@ -5,6 +5,8 @@
 <%@ page import="Groups.group2" %> 
 <%@ page import="Groups.group3" %>
 <%@ page import="Groups.group4" %>
+<%@ page import="Blocks.Booked" %>
+<%@ page import="Blocks.History" %>
 <%@ page import ="java.util.ArrayList" %>
    
 <!DOCTYPE html>
@@ -19,7 +21,13 @@
     <!-- Bootstrap -->
     <link href="bootstrap-3/css/bootstrap.min.css" rel="stylesheet">
 
-   
+    <script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script> 
    
 
     <style>
@@ -153,12 +161,25 @@
   cursor: pointer;
 }
 
-
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
  
     </style>
 
 </head>
-<body data-spy="scroll" data-target="#MainNavbar" data-offset="100">
+<body data-spy="scroll" data-target="#MainNavbar" data-offset="100" onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <%
 if(session.getAttribute("regno")== null){
 	response.sendRedirect("student.jsp");
@@ -277,18 +298,67 @@ String regno = (String)session.getAttribute("regno");
         
         
      <h3>Booked rooms</h3>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis sunt pariatur saepe aliquid numquam,
-    cum laborum consectetur ex nisi in hic quo sint veniam deleniti.
-    Quisquam iste, iure obcaecati sint esse at dignissimos molestias aspernatur,
-     numquam aliquam assumenda deleniti facilis.
+                 <% if(session.getAttribute("history") != null){
+      ArrayList<History> history= (ArrayList<History>)session.getAttribute("history");
+	      
+	     %>
+	     
+		    <div  class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered ">
+                    <thead>
+                     <tr>
+                         <td>
+                             Hostelname
+                         </td>
+                         <td>
+                             Roomnumber
+                         </td>
+                         <td>
+                             Year
+                         </td>
+                         <td>
+                             Status
+                         </td>
+
+                     </tr>
+                    </thead>
+                    <tbody>
+                         <%for(int i=0;i<history.size();i++){ %>
+                        <%History c = history.get(i); %>
+                        
+                        <%  String status = "";
+                        
+                       if(c.getStatus().equals("CLOSED")){
+                       	status = "Cleared";
+                       }else{
+                       	status = "Booked";
+                       	%>
+                       <% } %>
+                        <tr class="active">
+                            <td>
+                                <%=c.getHostelname() %>
+                            </td>
+                            <td>
+                                <%=c.getRoomno() %> 
+                            </td>
+                            <td>
+                                <%=c.getYear() %> 
+                            </td>
+                            <td>
+                                <%=status %>
+                            </td>
+  
+                        </tr>
+                        <%} %> 
+                      
+                    </tbody>
+                </table>
+            </div>
+           
+        </div> 
+	     
+         <%} %>
      </div>
    </div >
   
@@ -304,7 +374,7 @@ String regno = (String)session.getAttribute("regno");
     
      
       <div id="st2" class="col-xs-2 dropdown ">
-        <a id="bsg" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bsg" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -314,7 +384,7 @@ String regno = (String)session.getAttribute("regno");
         </ul>
     </div>
           <div id="st2s" class="col-xs-2 dropdown ">
-        <a id="bsgs" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bsgs" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -348,7 +418,7 @@ String regno = (String)session.getAttribute("regno");
     <form  action="DeclineGroup" method="Post">
      
 	   <p><%=notice %></p>  
-	   <input id="accept" type="submit" name="submit" class="btn btn-info float left"  value="accept">
+	   <input id="accept" type="submit" name="submit" class="btn btn-success float left"  value="accept">
 	   <input id="decline" type="submit" name="submit" class="btn btn-danger float right"  value="decline" >
 	   </form>
   </div>
@@ -362,7 +432,7 @@ String regno = (String)session.getAttribute("regno");
          
         
                   <% if(session.getAttribute("grpstatus") != null){
-      String notice = (String)session.getAttribute("grpstatus");
+      String notice1 = (String)session.getAttribute("grpstatus");
 	      
 	     %>
 	     
@@ -374,8 +444,8 @@ String regno = (String)session.getAttribute("regno");
    
     <form  action="DeclineGroup" method="Post">
      
-	   <p><%=notice %></p>  
-	   <input id="ad" type="submit" name="submit" class="btn btn-info float centre"  value="OK">
+	   <p><%=notice1 %></p>  
+	   <input id="ad" type="submit" name="submit" class="btn btn-success float centre"  value="OK">
 	   
 	   </form>
   </div>
@@ -386,7 +456,7 @@ String regno = (String)session.getAttribute("regno");
          
          
                            <% if(session.getAttribute("grpdeclined") != null){
-      String notice = (String)session.getAttribute("grpdeclined");
+      String notice2 = (String)session.getAttribute("grpdeclined");
 	      
 	     %>
 	     
@@ -398,8 +468,8 @@ String regno = (String)session.getAttribute("regno");
    
     <form  action="DeclineGroup" method="Post">
      
-	   <p><%=notice %></p>  
-	   <input id="ad" type="submit" name="submit" class="btn btn-info float centre"  value="OK">
+	   <p><%=notice2 %></p>  
+	   <input id="ad" type="submit" name="submit" class="btn btn-success float centre"  value="OK">
 	   
 	   </form>
   </div>
@@ -508,7 +578,7 @@ String regno = (String)session.getAttribute("regno");
     <form name="setDate" action="userstatus" method="Post">
      
 	   <p>Do you want to create a new  group?</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="confirm">
+	   <input type="submit" name="submit" class="btn btn-success"  value="confirm">
 	   
 	   </form>
   </div>
@@ -524,7 +594,7 @@ String regno = (String)session.getAttribute("regno");
     <form name="setDate" action="DeclineGroup" method="Post">
      
 	   <p>Do you want to exit group?</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   <input type="submit" name="submit" class="btn btn-success"  value="Confirm">
 	   
 	 </form>
   </div>
@@ -561,8 +631,8 @@ String regno = (String)session.getAttribute("regno");
      <div id="onb" class="col-xs-12 "> <h4>Booking is available</h4></div>
      
       <div id="st" class="col-xs-2 dropdown">
-        <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
-            Status
+        <a id="bst" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
+            Status<span class="caret"></span>
         </a>
   
     </div>
@@ -579,7 +649,7 @@ String regno = (String)session.getAttribute("regno");
              <input type="hidden" name="regno" class="form-control" value="<%= regno %>" />
              </div>
              
-             <input type="submit" name="submit" class="btn btn-primary col-xs-2"  value="BOOK">
+             <input type="submit" name="submit" class="btn btn-success col-xs-2"  value="BOOK">
              
            </form>
     </div>
@@ -596,7 +666,7 @@ String regno = (String)session.getAttribute("regno");
     <form name="setDate" action="" method="Post">
      
 	   <p>Do you want to unbook?</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   <input type="submit" name="submit" class="btn btn-success"  value="Confirm">
 	   
 	   </form>
   </div>
@@ -699,7 +769,7 @@ else{
 	$('#exb').addClass('hide');
 	$('#exbb').addClass('hide');
 }
-if(gstatus == "S"){
+if(gstatus == "S" || gstatus=="D"){
 	$('#st2s').addClass('hide');
 }else{
 	$('#st2').addClass('hide');

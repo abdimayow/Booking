@@ -18,9 +18,34 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+     <script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script> 
+<style>
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
+</style>
+
 </head>
-<body>
- <nav class="navbar navbar-default">
+<body  onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
+ <nav class="navbar navbar-inverse ">
        <div class="navbar-header">
        <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
        <span class="icon-bar"></span>
@@ -34,12 +59,23 @@
        </ul>
        </div>
       </nav>
+
+      
+      
+      
 <div class="container">
   <div class="row" style="min-height=200px;"></div>
+<% if(session.getAttribute("failure") != null){
+	String s = (String)session.getAttribute("failure");
+	 session.removeAttribute("failure");
+	 %>
+	 
        <div id="div1" class="alert alert-warning customDiv2" role="alert">
           <a id="clo" href="#" class="close" data-dismiss="alert">&times;</a>
-          ${failure} 
+          <%= s%> 
        </div>
+
+<%} %>
       <div class="row">
       
      
@@ -76,7 +112,7 @@
                      <div class="form-group">
                        
                         <div class="col-xs-10 col-xs-offset-2">
-                       <input type="submit" name="submit" class="btn btn-primary" value="Login Admin">
+                       <input type="submit" name="submit" class="btn btn-success" value="Login Admin">
                     </div>
                     </div>
                   

@@ -18,14 +18,39 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+ <script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script> 
+<style>
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
+
+</style>  
 </head>
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <%
 String f2 = "";
 String f1 = "";
 
 %>
- <nav class="navbar navbar-default">
+ <nav class="navbar navbar-inverse" >
        <div class="navbar-header">
        <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
        <span class="icon-bar"></span>
@@ -34,8 +59,14 @@ String f1 = "";
        </button>
        </div>
        <div class="navbar-collapse collapse">
-       <ul class="nav navbar-nav navbar-right">
-       <li ><a href="student.jsp">Student</a></li>
+       <ul class="nav navbar-nav navbar-left " >
+       <li ><a href="booking.jsp"  >Back</a></li>
+       </ul>
+              <ul class="nav navbar-nav navbar-centre " >
+       <li ><a href="booking.jsp"  >Home</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right " >
+       <li ><a href="logout.jsp"  >Logout</a></li>
        </ul>
        </div>
       </nav>
@@ -102,10 +133,11 @@ String f1 = "";
                     </div>
 
                     <div class="form-group">
-                       
-                        <div class="col-xs-10 col-xs-offset-2">
-                       <input type="submit" name="submit" class="btn btn-primary" value="creategroup">
-                    </div>
+                  
+                     <div class="col-xs-12 col-xs-offset-2">
+                       <input type="submit" name="submit" class="btn btn-success" value="creategroup">
+                     </div>
+
                     </div>
                   
                 </form>

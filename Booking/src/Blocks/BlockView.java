@@ -94,7 +94,9 @@ public class BlockView extends HttpServlet {
 			System.out.println(bedid2);
 			
 			break;
+			
 		default:
+			response.sendRedirect("BedView.jsp");
 			break;
 		}
 

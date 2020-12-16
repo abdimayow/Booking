@@ -407,10 +407,11 @@ public class GroupDaoImp implements GroupDao {
 			while(rs.next()) {
 				g.setGroupid(rs.getInt(1));
 				g.setGroupname(rs.getString(2));
-				g.setNoOfMembers(rs.getString(3));
-				g.setLeader(rs.getString(4));
-				g.setMessage(rs.getString(5));
-				g.setChecked(rs.getString(6));
+				g.setCategory(rs.getString(3));
+				g.setNoOfMembers(rs.getString(4));
+				g.setLeader(rs.getString(5));
+				g.setMessage(rs.getString(6));
+				g.setChecked(rs.getString(7));
 					
 			}
 			
@@ -1535,6 +1536,411 @@ public class GroupDaoImp implements GroupDao {
 				}
 				
 				return s;
+	}
+
+	@Override
+	public boolean closeallgroups() {
+    ArrayList<groups> s = new ArrayList<groups>();
+    ArrayList<groups> declined = new ArrayList<groups>();
+    ArrayList<String> regnos = new ArrayList<String>();
+    ArrayList<String> regnos2 = new ArrayList<String>();
+	boolean flag = false;	
+		
+		try {
+			
+			
+			conn1 = ConnectionProvider.getconn();
+			ps = conn1.prepareStatement("select * from groups where Message=?");
+			ps.setString(1, "PENDING");
+			
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				groups g = new groups();
+				g.setGroupid(rs.getInt(1));
+				g.setGroupname(rs.getString(2));
+				g.setCategory(rs.getString(3));
+				g.setNoOfMembers(rs.getString(4));
+				g.setLeader(rs.getString(5));
+				g.setMessage(rs.getString(6));
+				g.setChecked(rs.getString(7));
+				
+				s.add(g);
+			}
+			conn1.close();
+			ps.close();
+			rs.close();
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in getting pending group from groups table");
+				}
+		
+
+
+		ArrayList<group2> group2s = new ArrayList<group2>();
+		ArrayList<group3> group3s = new ArrayList<group3>();
+		ArrayList<group4> group4s = new ArrayList<group4>();
+		
+			for(int i=0;i<s.size();i++) {
+				
+				
+
+				
+				groups pengroup = s.get(i);
+				System.out.println("Second: "+"NAME: "+pengroup.getGroupname()+" Leader"+pengroup.getLeader() +" Message"+pengroup.getMessage());
+				switch(pengroup.getNoOfMembers()) {
+				
+				case "2":
+					
+					
+					try {
+						
+						
+						conn1 = ConnectionProvider.getconn();
+						ps = conn1.prepareStatement("select * from group2 where leader=?");
+						ps.setString(1, pengroup.getLeader());
+						
+						
+						ResultSet rs = ps.executeQuery();
+						
+						while(rs.next()) {
+							group2 g = new group2();
+							g.setId(rs.getInt(1));
+							g.setGroupid(rs.getInt(2));
+							g.setLeader(rs.getString(3));
+							g.setRegno2(rs.getString(4));
+						
+							group2s.add(g);
+						}
+						conn1.close();
+						ps.close();
+						rs.close();
+						
+						
+							}catch(Exception e){
+								System.out.println(e);
+								System.out.println("there is an exception in getting group using leader from group2 table");
+							}
+
+					
+						for(int j=0;j<group2s.size();j++) {
+							group2 g = group2s.get(j);
+							regnos.add(g.getLeader());
+							regnos.add(g.getRegno2());
+							System.out.println("Group  has members: "+g.getLeader()+", "+g.getRegno2());
+						}
+						
+					
+
+					break;
+               case "3":
+					
+					
+					try {
+						
+						
+						conn1 = ConnectionProvider.getconn();
+						ps = conn1.prepareStatement("select * from group3 where leader=?");
+						ps.setString(1, pengroup.getLeader());
+						
+						
+						ResultSet rs = ps.executeQuery();
+						
+						while(rs.next()) {
+							group3 g = new group3();
+							g.setId(rs.getInt(1));
+							g.setGroupid(rs.getInt(2));
+							g.setLeader(rs.getString(3));
+							g.setRegno2(rs.getString(4));
+							g.setRegno3(rs.getString(5));
+							group3s.add(g);
+						}
+						conn1.close();
+						ps.close();
+						rs.close();
+						
+						
+							}catch(Exception e){
+								System.out.println(e);
+								System.out.println("there is an exception in getting group using leader from group3 table");
+							}
+
+					
+						for(int j=0;j<group3s.size();j++) {
+							group3 g = group3s.get(j);
+							regnos.add(g.getLeader());
+							regnos.add(g.getRegno2());
+							regnos.add(g.getRegno3());
+							System.out.println("Group  has members: "+g.getLeader()+", "+g.getRegno2()+", "+g.getRegno3());
+						}
+						
+					
+
+					break;
+					
+				
+				default :
+					try {
+						
+						
+						conn1 = ConnectionProvider.getconn();
+						ps = conn1.prepareStatement("select * from group4 where leader=?");
+						ps.setString(1, pengroup.getLeader());
+						
+						
+						ResultSet rs = ps.executeQuery();
+						
+						while(rs.next()) {
+							group4 g = new group4();
+							g.setId(rs.getInt(1));
+							g.setGroupid(rs.getInt(2));
+							g.setLeader(rs.getString(3));
+							g.setRegno2(rs.getString(4));
+							g.setRegno3(rs.getString(5));
+							g.setRegno4(rs.getString(6));
+							group4s.add(g);
+						}
+						conn1.close();
+						ps.close();
+						rs.close();
+						
+						
+							}catch(Exception e){
+								System.out.println(e);
+								System.out.println("there is an exception in getting group using leader from group4 table");
+							}
+
+					
+						for(int j=0;j<group4s.size();j++) {
+							group4 g = group4s.get(j);
+							regnos.add(g.getLeader());
+							regnos.add(g.getRegno2());
+							regnos.add(g.getRegno3());
+							regnos.add(g.getRegno4());
+							System.out.println("Group  has members: "+g.getLeader()+", "+g.getRegno2()+", "+g.getRegno3()+", "+g.getRegno4());
+						}
+					break;
+				
+				
+				}
+				
+				
+				
+			}
+			
+			
+
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+		
+		try {
+			
+			
+			conn1 = ConnectionProvider.getconn();
+			ps = conn1.prepareStatement("select * from groups where (Message!=? and Message!=?)");
+			ps.setString(1, "PENDING");
+			ps.setString(2, "COMPLETE");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				groups dg = new groups();
+				dg.setGroupid(rs.getInt(1));
+				dg.setGroupname(rs.getString(2));
+				dg.setCategory(rs.getString(3));
+				dg.setNoOfMembers(rs.getString(4));
+				dg.setLeader(rs.getString(5));
+				dg.setMessage(rs.getString(6));
+				dg.setChecked(rs.getString(7));
+				
+				declined.add(dg);
+			}
+			conn1.close();
+			ps.close();
+			rs.close();
+			
+			
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in getting declined group from groups table");
+				}
+		
+
+		
+		
+		
+		
+		
+		
+		
+
+		
+		if(declined.size()!=0) {
+			for(int i=0;i<declined.size();i++) {
+				groups gr = declined.get(i);
+				regnos.add(gr.getLeader());
+				System.out.println(i+".regnos size: "+regnos.size() +" "+ gr.getLeader());
+				
+			}
+		}
+
+		
+		if(regnos.size()!=0) {
+			flag = true;
+			for(int i =0;i<regnos.size();i++) {
+				String reg= regnos.get(i);
+				System.out.println("Registration number ro be edited is: "+reg);
+				int status = 0;
+				String n ="S";
+				String gr = "NULL";
+				String rg = "NULL";
+				try {
+				
+				conn1 = ConnectionProvider.getconn();
+				ps = conn1.prepareStatement("update students set status=?,grp=?,reg=? where regno=?");
+				ps.setString(1, n);	
+				ps.setString(2, gr);
+				ps.setString(3, rg);
+				ps.setString(4, reg);
+
+				
+				status = ps.executeUpdate();
+				
+				conn1.close();
+				ps.close();
+					
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in deleleting data status column in students table");
+				}
+			}
+			
+		}
+		
+
+				
+
+				if(s.size()!=0) {
+					for(int i=0;i<s.size();i++) {
+						int status;
+
+						
+						groups pengroup = s.get(i);
+						
+						switch(pengroup.getNoOfMembers()) {
+						
+						case "2":
+							System.out.println(pengroup.getNoOfMembers()+" and leader TO BE DELETED is "+pengroup.getLeader());
+							
+							try {
+								
+								conn1 = ConnectionProvider.getconn();
+								ps = conn1.prepareStatement("delete from group2 where leader=?");
+								ps.setString(1, pengroup.getLeader());	
+
+
+								
+								status = ps.executeUpdate();
+								
+								conn1.close();
+								ps.close();
+									
+								}catch(Exception e){
+									System.out.println(e);
+									System.out.println("there is an exception in deleting data from group2 table");
+								}
+
+
+
+							break;
+						case "3":
+							System.out.println(pengroup.getNoOfMembers()+" and leader TO BE DELETED is "+pengroup.getLeader());
+							
+							try {
+								
+								conn1 = ConnectionProvider.getconn();
+								ps = conn1.prepareStatement("delete from group3 where leader=?");
+								ps.setString(1, pengroup.getLeader());	
+
+
+								
+								status = ps.executeUpdate();
+								
+								conn1.close();
+								ps.close();
+									
+								}catch(Exception e){
+									System.out.println(e);
+									System.out.println("there is an exception in deleting data from group3 table");
+								}
+
+
+
+							break;
+						default:
+							System.out.println(pengroup.getNoOfMembers()+" and leader TO BE DELETED is "+pengroup.getLeader());
+							
+							try {
+								
+								conn1 = ConnectionProvider.getconn();
+								ps = conn1.prepareStatement("delete from group4 where leader=?");
+								ps.setString(1, pengroup.getLeader());	
+
+
+								
+								status = ps.executeUpdate();
+								
+								conn1.close();
+								ps.close();
+									
+								}catch(Exception e){
+									System.out.println(e);
+									System.out.println("there is an exception in deleting data from group4 table");
+								}
+
+
+
+							break;
+					}
+				}
+				}
+
+			
+		
+		
+				try {
+					
+				conn1 = ConnectionProvider.getconn();
+				ps = conn1.prepareStatement("delete from groups where Message!=?");
+				ps.setString(1, "COMPLETE");	
+
+
+				
+				int status = ps.executeUpdate();
+				
+				conn1.close();
+				ps.close();
+					
+				}catch(Exception e){
+					System.out.println(e);
+					System.out.println("there is an exception in deleleting data from groups table");
+				}	
+		
+		
+		return flag;
 	}
 
 

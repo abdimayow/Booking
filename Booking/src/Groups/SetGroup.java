@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Blocks.InsertDaoImp;
+import Blocks.insertDao;
 import RoomBooking.RoomBookingDao;
 import RoomBooking.RoomBookingDaoImp;
 
@@ -26,6 +28,7 @@ public class SetGroup extends HttpServlet {
 		
 	   HttpSession session = request.getSession();
 	  
+	   insertDao in = new InsertDaoImp();
 		
 	   String from = request.getParameter("from");
 	   String to = request.getParameter("to");
@@ -38,7 +41,9 @@ public class SetGroup extends HttpServlet {
 	   
 	  Group g = new Group();
 	  if(submitype.equals("confirmDate")) {
-
+       
+		  int close = in.unbookall();
+		  System.out.println("Unbook all returned: "+close);
 		  
 		  if(then.equals("YES")) {
 			  rm.closeBookStatus();

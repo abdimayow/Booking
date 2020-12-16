@@ -329,6 +329,20 @@ if(todate < fromdate){
   text-decoration: none;
   cursor: pointer;
 }
+.navbar-inverse {
+    background-color: #035e06;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+.btn-success{
+background-color: #035e06;
+}
  
     </style>
 
@@ -342,7 +356,7 @@ String f1 = "";
 String s= "";
 %>
  
-  <nav id="MainNavbar" class="nav navbar-inverse navbar-fixed-top">
+  <nav id="MainNavbar" class="nav navbar-inverse bg-custom navbar-fixed-top">
   <div class="container ">
        <div class="navbar-header">
        <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
@@ -358,6 +372,7 @@ String s= "";
       <li ><a href="#groups" >Groups</a></li>
       <li ><a href="#blocks" >Blocks</a></li>
       <li ><a href="#vRooms" >Vacant-Rooms</a></li>
+      <li ><a href="#bRooms" >Booked-Rooms</a></li>
       <li ><a href="#book" >Book</a></li>
       
        </ul>
@@ -419,7 +434,7 @@ String s= "";
              <div class="form-group">
              <input type="text" class="form-control" placeholder="registration number" />
              </div>
-             <button type="button" class="btn btn-primary">Submit</button>
+             <button type="button" class="btn btn-success">Submit</button>
              
            </form>
    </div >
@@ -435,7 +450,7 @@ String s= "";
      <div id="offb" class="col-xs-12 hide"> <h4>Booking is unavailable</h4></div>
      <div id="eb" class="col-xs-12 hide"> <h4>Click on the Button to Change status</h4></div>
       <div id="st" class="col-xs-2 dropdown">
-        <a id="bst" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bst" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -445,7 +460,7 @@ String s= "";
         </ul>
     </div>
     <div id="stb" class="col-xs-2 dropdown">
-        <a id="bstb" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bstb" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -477,7 +492,7 @@ String s= "";
 							   <div class="form-group">
 							      <label>to:</label> <input   name="to" type="date" class="form-control" id="bto">
 							   </div>
-							      <input type="submit" name="submit"   class="btn btn-primary" onClick="return checkFormb();" value="confirmDate">
+							      <input type="submit" name="submit"   class="btn btn-success" onClick="return checkFormb();" value="confirmDate">
 					  </form>
 		    </div>
 
@@ -493,7 +508,7 @@ String s= "";
     <form name="setDate" action="setBookStatus" method="Post">
      
 	   <p>Do you want to disable Booking?</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   <input type="submit" name="submit" class="btn btn-success"  value="Confirm">
 	   
 	   </form>
   </div>
@@ -550,7 +565,7 @@ String s= "";
  
     
       <div id="st2" class="col-xs-2 dropdown">
-        <a id="bsg" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bsg" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -561,7 +576,7 @@ String s= "";
         </ul>
     </div>
     <div id="st2s" class="col-xs-2 dropdown">
-        <a id="bsgs" class="dropdown-toggle btn btn-info sav" data-toggle="dropdown">
+        <a id="bsgs" class="dropdown-toggle btn btn-success sav" data-toggle="dropdown">
             Status<span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -585,12 +600,12 @@ String s= "";
     
 	   
 	 %>
-<form name="ViewGroups"  action="ViewGroups" method="Post">
+<form id = "ViewGroups" name="ViewGroups"  class="hide"action="ViewGroups" method="Post">
 	<div class="form-group">
 	<label for="viewgroups"><h4>View Groups</h4></label>
     <select name="select" class="form-control">
     
-    <option name="Normal" value="Normal">Normal</option>
+    <option  name="Normal" value="Normal">Normal</option>
     <option name="Health Science" value="Health Science">Health Science</option>
     <option name="Engineering" value="Engineering">Engineering</option>
   
@@ -600,12 +615,24 @@ String s= "";
   
 
 
-<input id="button"  class="btn btn-primary form-control" type="submit" name="submit"  value="view">
+<input id="button"  class="btn btn-success form-control" type="submit" name="submit"  value="view">
 		
 </form>
 
+
+ <div id = "SearchGroups" class="col-xs-12 hide">
+      <form name="searchgroup" action="ViewGroups" method="Post">
+			 <div class="form-group">
+	<h4>Search by date:</h4> <input name="from" type="date" class="form-control" id="from" required>
+			</div>
+
+			<input type="submit" name="submit" class="btn btn-success"  value="search">
+     </form> 
+ </div>
      
      </div> 
+     
+
 
 	 
 	 
@@ -627,7 +654,7 @@ String s= "";
 			<div class="form-group">
 			<label>to:</label> <input   name="to" type="date" class="form-control" id="to" required>
 			</div>
-			<input type="submit" name="submit" class="btn btn-primary" onClick="return checkForm();" value="confirmDate">
+			<input type="submit" name="submit" class="btn btn-success" onClick="return checkForm();" value="confirmDate">
 			</form>
   </div>
 
@@ -644,7 +671,7 @@ String s= "";
     <form name="setDate" action="setgroup" method="Post">
      
 	   <p>Do you want to disable grouping</p>  
-	   <input type="submit" name="submit" class="btn btn-primary"  value="Confirm">
+	   <input type="submit" name="submit" class="btn btn-success"  value="Confirm">
 	   
 	   </form>
   </div>
@@ -681,7 +708,7 @@ String s= "";
   
 
 
-<input id="button"  class="btn btn-primary" type="submit" name="submit"  value="view blocks">
+<input id="button"  class="btn btn-success" type="submit" name="submit"  value="view blocks">
 		
 </form>
    </div >
@@ -690,11 +717,21 @@ String s= "";
        <div id="vRooms" class="DivStyle">
        <h2>Vacant Rooms</h2>
        <div class="DivStyle2">
-                  <form class="form-inline" action="" role="search">
-             <div class="form-group">
-             <input type="text" class="form-control" placeholder="registration number" />
-             </div>
-             <button type="button" class="btn btn-primary">Submit</button>
+                  <form class="form"  action="" role="search">
+
+            <a href="VacantRoomsReport.jsp"> <button type="button" class="btn btn-success">Generate Report</button></a>
+             
+           </form>
+       </div>
+   
+
+   </div >
+     <div id="bRooms" class="DivStyle">
+       <h2>Booked Rooms</h2>
+       <div class="DivStyle2">
+                  <form class="form"  action="" role="search">
+
+            <a href="BookedRoomsReport.jsp"> <button type="button" class="btn btn-success">Generate Report</button></a>
              
            </form>
        </div>
@@ -710,7 +747,7 @@ String s= "";
              <input type="text" name="regno" class="form-control" placeholder="registration number" />
              </div>
              
-             <input type="submit" name="submit" class="btn btn-primary" onClick="return validatereg();" value="bookstudent">
+             <input type="submit" name="submit" class="btn btn-success" onClick="return validatereg();" value="bookstudent">
              
            </form>
    </div >
@@ -763,8 +800,11 @@ if((status == 'YES')&&(bstatus == 'NO')){
 	$('#ong').removeClass('hide');
 	$('#eg').removeClass('hide');
 	$('#exg').removeClass('hide');
+	$('#ViewGroups').removeClass('hide');
+	$('#SearchGroups').removeClass('hide');
 	
-	$('#bsg').removeClass('disabled');
+	
+	$('#bsg').removeClass('disabled');             
 	
 	$('#st2').addClass('hide');
 	$('#st2s').removeClass('hide');
